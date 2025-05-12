@@ -8,10 +8,10 @@ const FoodieNavbar = () => {
           <img alt="logoimg" src="src/assets/logo.png" className="d-inline-block align-top " />
         </Navbar.Brand>
         <Nav className="ms-auto" style={{ alignItems: "center" }}>
-          <Nav.Link href="#chi-siamo">CHI SIAMO</Nav.Link>
-          <Nav.Link href="#menu">MENU</Nav.Link>
-          <Nav.Link href="#location">LOCATION</Nav.Link>
-          <Nav.Link href="#contatti">CONTATTI</Nav.Link>
+          <Nav.Link href="/chi-siamo">CHI SIAMO</Nav.Link>
+          <Nav.Link href="/menu">MENU</Nav.Link>
+          <Nav.Link href="/location">LOCATION</Nav.Link>
+          <Nav.Link href="/contatti">CONTATTI</Nav.Link>
           <Button
             variant="danger"
             style={{
