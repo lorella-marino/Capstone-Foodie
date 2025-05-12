@@ -1,14 +1,14 @@
 import { Container, Navbar } from "react-bootstrap";
-import "./App.css";
-import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
+import "./index.css";
+import FoodieNavbar from "./components/FoodieNavbar";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
     <BrowserRouter>
+      <FoodieNavbar />
       <Container className="mt-4">
-        <Routes>
-          <Route />
-        </Routes>
+        <Routes>{/* <Route path="/home" element={<FoodieNavbar />} /> */}</Routes>
       </Container>
     </BrowserRouter>
   );
