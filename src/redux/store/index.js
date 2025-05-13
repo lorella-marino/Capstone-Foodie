@@ -1,9 +1,10 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
-
-const rootReducer = combineReducers({});
+import { configureStore } from "@reduxjs/toolkit";
+import richiestaReducer from "../reducers/richiestaReducer";
 
 const store = configureStore({
-  reducer: rootReducer,
+  reducer: {
+    richiesta: richiestaReducer,
+  },
 });
 
 export default store;

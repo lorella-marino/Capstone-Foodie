@@ -1,4 +1,4 @@
-import { Navbar, Nav, Container, Button } from "react-bootstrap";
+import { Navbar, Nav, Container, Button, NavbarToggle } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
 const FoodieNavbar = () => {
@@ -9,7 +9,8 @@ const FoodieNavbar = () => {
           <img alt="logoimg" src="src/assets/logo.png" className="d-inline-block align-top" />
         </Navbar.Brand>
 
-        <Navbar.Toggle aria-controls="foodie-navbar" />
+        <NavbarToggle aria-controls="foodie-navbar" className="custom-toggler" />
+
         <Navbar.Collapse id="foodie-navbar">
           <Nav className="ms-auto" style={{ alignItems: "center" }}>
             <NavLink to="/chi-siamo" className="nav-link">
