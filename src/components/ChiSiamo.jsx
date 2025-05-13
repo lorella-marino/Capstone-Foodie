@@ -4,7 +4,7 @@ import { Col, Container, Row } from "react-bootstrap";
 
 const ChiSiamo = () => {
   return (
-    <Container id="chisiamo" className="pt-2">
+    <Container id="chisiamo">
       <Row xs={1} md={2} className="my-5">
         <Col className=" d-flex flex-column justify-content-center">
           <h2 className="align-self-start">Chi siamo?</h2>
@@ -15,8 +15,8 @@ const ChiSiamo = () => {
             gioco.
           </p>
         </Col>
-        <Col className=" d-flex align-items-center justify-content-center">
-          <img src="src/assets/logo.png" alt="logo" className="img-fluid rounded " id="logo" />
+        <Col className=" d-flex  flex-column  justify-content-center">
+          <img src="src/assets/stoviglie.jpg" alt="logo" className="img-fluid rounded " />
         </Col>
       </Row>
       <div className="pattern"></div>

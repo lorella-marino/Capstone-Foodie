@@ -4,9 +4,11 @@ import "react-multi-carousel/lib/styles.css";
 const images = [
   "src/assets/image.png",
   "src/assets/hamburger.jpg",
+  "src/assets/pack.jpg",
   "src/assets/imagebowl.png",
   "src/assets/insalata.avif",
   "src/assets/bowl.avif",
+  "src/assets/bicchieri.jpg",
 ];
 
 const responsive = {

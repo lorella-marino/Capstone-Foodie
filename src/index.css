@@ -2,7 +2,16 @@
   font-family: "Baloo Bhai 2", sans-serif;
 }
 
+body {
+  padding-top: 6rem;
+}
+
+p {
+  font-size: 1.1rem;
+}
+
 /* NAVBAR */
+
 .navbar img {
   width: 10rem;
 }
@@ -15,6 +24,7 @@ a.nav-link {
   display: flex;
   align-items: center;
   margin: 0rem 1rem;
+  text-decoration: none;
 }
 
 a.nav-link:hover,
@@ -23,12 +33,19 @@ a.nav-link.show {
   color: #b46577 !important;
 }
 
-button.btn-danger .nav-link {
-  color: #fef3f2 !important;
+/* Stile del bottone ORDINA */
+#ordinabutton {
+  background-color: #b56475;
+  border: none;
+  border-radius: 20px;
+  margin-left: 1rem;
+  padding: 0.4rem 1rem;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
 }
 
-button.btn-danger:hover {
-  color: #ccaeb5;
+#ordinabutton:hover {
+  background-color: #944c61;
 }
 
 /* HOME */
@@ -43,9 +60,9 @@ button.btn-danger:hover {
 }
 
 /* CHI SIAMO */
-#chisiamo h2 {
-  color: #a98e60;
-  font-weight: semibold;
+
+h2 {
+  color: #a98e60 !important;
 }
 
 #chisiamo .col img {
@@ -66,11 +83,15 @@ button.btn-danger:hover {
   background-attachment: fixed;
 }
 
-#logo {
-  width: 85% !important;
-  height: 200px !important;
-  object-fit: contain !important;
-  border-radius: 0px !important;
+/* LOCATIONS */
+#locations a {
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: 0.3s;
+}
+
+#locations a:hover {
+  color: #b46577;
 }
 
 /* FOOTER */
@@ -90,4 +111,11 @@ footer a {
   background-position: center;
   background-size: cover;
   overflow: hidden;
+}
+
+.col-inner {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
 }
