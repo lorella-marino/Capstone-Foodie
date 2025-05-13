@@ -3,9 +3,9 @@ import "react-multi-carousel/lib/styles.css";
 
 const images = [
   "src/assets/image.png",
+  "src/assets/hamburger.jpg",
   "src/assets/imagebowl.png",
   "src/assets/insalata.avif",
-  "src/assets/Food_truck_owner_challenges.avif",
   "src/assets/bowl.avif",
 ];
 
@@ -46,7 +46,7 @@ const Carosello = () => {
             alt={`slide-${index}`}
             style={{
               width: "100%",
-              height: "250px",
+              height: "300px",
               objectFit: "cover",
               borderRadius: "12px",
             }}
