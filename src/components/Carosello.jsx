@@ -2,11 +2,11 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
 const images = [
-  "src/assets/image.png",
   "src/assets/hamburger.jpg",
-  "src/assets/pack.jpg",
   "src/assets/imagebowl.png",
+  "src/assets/pack.jpg",
   "src/assets/insalata.avif",
+  "src/assets/image.png",
   "src/assets/bowl.avif",
   "src/assets/bicchieri.jpg",
 ];

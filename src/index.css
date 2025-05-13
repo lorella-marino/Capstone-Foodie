@@ -33,7 +33,6 @@ a.nav-link.show {
   color: #b46577 !important;
 }
 
-/* Stile del bottone ORDINA */
 #ordinabutton {
   background-color: #b56475;
   border: none;
@@ -112,6 +111,30 @@ h2 {
   color: #b46577;
 }
 
+/* CONTATTI */
+#formcontatti input,
+#formcontatti textarea,
+#formcontatti button {
+  background-color: #faf6f0;
+  padding: 0.8rem;
+  margin: 0.5rem 0;
+  border: none;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+#formcontatti button {
+  background-color: #b56475;
+  color: white;
+  width: 25%;
+}
+
+#formcontatti button:hover {
+  background-color: #944c61;
+  color: white;
+  cursor: pointer;
+}
+
 /* FOOTER */
 footer a {
   text-decoration: none;
@@ -137,3 +160,5 @@ footer a {
   margin-right: auto;
   text-align: left;
 }
+
+/* MEDIA QUERIES */

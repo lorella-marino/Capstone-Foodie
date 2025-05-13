@@ -39,7 +39,7 @@ const ChiSiamo = () => {
 
       <Row xs={1} md={2} className="my-5">
         <Col className=" d-flex flex-column justify-content-center">
-          <h2 className="align-self-start">Cibo vero, senza finzioni</h2>
+          <h2 className="align-self-start">Il nostro impegno</h2>
           <p>
             Il nostro menù cambia con le stagioni, perché ci adattiamo a ciò che la terra offre. Collaboriamo con
             produttori locali per garantire qualità, sostenibilità e gusto. Niente surgelati, niente scorciatoie: solo

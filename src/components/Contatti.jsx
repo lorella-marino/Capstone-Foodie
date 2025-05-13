@@ -16,16 +16,16 @@ const Contatti = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(inviaRichiesta(form));
-    setForm({ nome: "", email: "", messaggio: "" }); // reset dopo invio
+    setForm({ nome: "", email: "", messaggio: "" }); // reset dopo l'invio
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} id="formcontatti">
       <h2 className="text-center">Hai qualche domanda?</h2>
-      <p className="text-center mb-4">Scrivici e saremo lieti di risponderti il prima possibile.</p>
+      <p className="text-center mb-4">Scrivici e ti risponderemo il prima possibile.</p>
 
       <Container className="d-flex flex-column align-items-center">
-        <Row className=" w-50">
+        <Row className=" w-50 justify-content-center">
           <input type="text" name="nome" placeholder="Nome" value={form.nome} onChange={handleChange} required />
           <input type="email" name="email" placeholder="Email" value={form.email} onChange={handleChange} required />
           <textarea
@@ -42,7 +42,7 @@ const Contatti = () => {
           </button>
         </Row>
       </Container>
-      {successo && <p className="text-success text-center mt-3">Messaggio inviato con successo!</p>}
+      {successo && <p className="text-success text-center mt-3">Messaggio inviato!</p>}
       {errore && <p className="text-danger text-center mt-3">{errore}</p>}
     </form>
   );
