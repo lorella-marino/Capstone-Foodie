@@ -5,7 +5,7 @@ import { Col, Container, Row } from "react-bootstrap";
 const ChiSiamo = () => {
   return (
     <Container id="chisiamo">
-      <Row xs={1} md={2} className="my-5">
+      <Row xs={1} md={2} className="mb-5">
         <Col className=" d-flex flex-column justify-content-center">
           <h2 className="align-self-start">Chi siamo?</h2>
           <p>
@@ -16,14 +16,14 @@ const ChiSiamo = () => {
           </p>
         </Col>
         <Col className=" d-flex  flex-column  justify-content-center">
-          <img src="src/assets/stoviglie.jpg" alt="logo" className="img-fluid rounded " />
+          <img src="src/assets/stoviglie.jpg" alt="logo" className="img-fluid " />
         </Col>
       </Row>
       <div className="pattern"></div>
 
       <Row xs={1} md={2} className="my-5">
         <Col>
-          <img src="src/assets/Food_truck_owner_challenges.avif" alt="Food Truck" className="img-fluid rounded" />
+          <img src="src/assets/Food_truck_owner_challenges.avif" alt="Food Truck" className="img-fluid" />
         </Col>
         <Col className=" d-flex flex-column justify-content-center">
           <h2 className="align-self-start">Il nostro concept</h2>
@@ -47,14 +47,14 @@ const ChiSiamo = () => {
           </p>
         </Col>
         <Col>
-          <img src="src/assets/agricoltore.avif" alt="Food Truck" className="img-fluid rounded" />
+          <img src="src/assets/agricoltore.avif" alt="Food Truck" className="img-fluid" />
         </Col>
       </Row>
       <div className="pattern"></div>
 
       <Row xs={1} md={2} className="my-5">
         <Col>
-          <img src="src/assets/imagebowl.png" alt="Food Truck" className="img-fluid rounded" />
+          <img src="src/assets/imagebowl.png" alt="Food Truck" className="img-fluid" />
         </Col>
         <Col className=" d-flex flex-column justify-content-center">
           <h2 className="align-self-start">La nostra filosofia</h2>

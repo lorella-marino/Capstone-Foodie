@@ -3,7 +3,7 @@
 }
 
 body {
-  padding-top: 6rem;
+  padding-top: 7rem;
 }
 
 p {
@@ -37,7 +37,7 @@ a.nav-link.show {
   background-color: #b56475;
   border: none;
   border-radius: 20px;
-  margin-left: 1rem;
+  margin: 0 1rem;
   padding: 0.4rem 1rem;
   transition: background-color 0.3s ease;
   font-weight: bold;
@@ -65,76 +65,6 @@ a.nav-link.show {
   cursor: pointer;
 }
 
-/* HOME */
-
-.buttonhome {
-  background-color: #b46577 !important;
-  color: #b46577;
-  border: none;
-  font-weight: bold;
-  font-size: 1.1rem;
-  transition: 0.3s;
-}
-
-/* CHI SIAMO */
-
-h2 {
-  color: #a98e60 !important;
-}
-
-#chisiamo .col img {
-  width: 100%;
-  height: 300px;
-  margin-bottom: 10px;
-  object-fit: cover;
-  border-radius: 12px;
-}
-
-.pattern {
-  width: 100%;
-  height: 70px;
-  background-image: url("src/assets/pattern.png");
-  background-size: auto 1000px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: fixed;
-}
-
-/* LOCATIONS */
-#locations a {
-  font-weight: bold;
-  font-size: 1.1rem;
-  transition: 0.3s;
-}
-
-#locations a:hover {
-  color: #b46577;
-}
-
-/* CONTATTI */
-#formcontatti input,
-#formcontatti textarea,
-#formcontatti button {
-  background-color: #faf6f0;
-  padding: 0.8rem;
-  margin: 0.5rem 0;
-  border: none;
-  border-radius: 10px;
-  transition: 0.3s;
-}
-
-#formcontatti button {
-  background-color: #b56475;
-  color: white;
-  width: 25%;
-}
-
-#formcontatti button:hover {
-  background-color: #944c61;
-  color: white;
-  cursor: pointer;
-}
-
 /* FOOTER */
 footer a {
   text-decoration: none;
@@ -159,6 +89,90 @@ footer a {
   margin-left: auto;
   margin-right: auto;
   text-align: left;
+}
+
+/* HOME */
+
+.buttonhome {
+  background-color: #b46577 !important;
+  color: #b46577;
+  border: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: 0.3s;
+}
+
+/* CHI SIAMO */
+
+h2 {
+  color: #a98e60 !important;
+}
+
+#chisiamo .col img {
+  width: 100%;
+  height: 300px;
+  margin-bottom: 10px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.pattern {
+  width: 100%;
+  height: 70px;
+  background-image: url("src/assets/pattern.png");
+  background-size: auto 1000px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* LOCATIONS */
+#locations a {
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: 0.3s;
+}
+
+#locations a:hover {
+  color: #b46577;
+}
+
+/* CONTATTI */
+/* #formcontatti,
+#formregister {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.907), rgba(255, 255, 255, 0.873)),
+    url("src/assets/pattern.png");
+  border-radius: 50px;
+  background-size: auto 1000px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  padding: 3rem;
+} */
+
+#form input,
+#form textarea,
+#form button,
+#buttonregister {
+  background-color: #faf6f0;
+  padding: 0.8rem;
+  margin: 0.5rem 0;
+  border: none;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+#form button,
+#buttonregister {
+  background-color: #b56475;
+  color: white;
+  width: 35%;
+}
+
+#form button:hover,
+#buttonregister:hover {
+  background-color: #944c61;
+  cursor: pointer;
 }
 
 /* MEDIA QUERIES */

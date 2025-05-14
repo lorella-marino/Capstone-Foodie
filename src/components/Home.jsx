@@ -10,10 +10,7 @@ const Home = () => {
       <Container className="p-0">
         <Row xs={1} md={2} className="mt-4 px-2">
           <Col>
-            <Button
-              onClick={() => (window.location.href = "/chi-siamo")}
-              className="text-start buttonhome border border-0"
-            >
+            <Button href="/chi-siamo" className="text-start buttonhome border border-0">
               <div>
                 <p className="fw-semibold fs-5"> Chi siamo?</p>
                 <p>

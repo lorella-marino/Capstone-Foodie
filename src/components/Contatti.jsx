@@ -1,50 +1,96 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { inviaRichiesta } from "../redux/actions";
-import { Container, Row } from "react-bootstrap";
+import { Button, Container, Form, Row } from "react-bootstrap";
 
 const Contatti = () => {
   const dispatch = useDispatch();
   const { loading, successo, errore } = useSelector((state) => state.richiesta);
 
   const [form, setForm] = useState({ nome: "", email: "", messaggio: "" });
+  const [validated, setValidated] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(inviaRichiesta(form));
-    setForm({ nome: "", email: "", messaggio: "" }); // reset dopo l'invio
+    const formElement = e.currentTarget;
+
+    if (!formElement.checkValidity()) {
+      e.stopPropagation();
+      setValidated(true);
+      return;
+    }
+
+    setValidated(true);
+
+    const result = await dispatch(inviaRichiesta(form));
+
+    if (result?.success) {
+      setForm({ nome: "", email: "", messaggio: "" }); // resetta il form dopo l'invio
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} id="formcontatti">
-      <h2 className="text-center">Hai qualche domanda?</h2>
-      <p className="text-center mb-4">Scrivici e ti risponderemo il prima possibile.</p>
+    <Container className="text-center">
+      <h2>Hai qualche domanda?</h2>
+      <p className="mb-4">Scrivici e ti risponderemo il prima possibile.</p>
 
-      <Container className="d-flex flex-column align-items-center">
-        <Row className=" w-50 justify-content-center">
-          <input type="text" name="nome" placeholder="Nome" value={form.nome} onChange={handleChange} required />
-          <input type="email" name="email" placeholder="Email" value={form.email} onChange={handleChange} required />
-          <textarea
-            name="messaggio"
-            placeholder="Messaggio"
-            value={form.messaggio}
-            onChange={handleChange}
-            rows={5}
-            required
-          ></textarea>
+      <Form
+        id="form"
+        noValidate
+        validated={validated}
+        onSubmit={handleSubmit}
+        className="d-flex flex-column align-items-center"
+      >
+        <Row className="w-50 justify-content-center">
+          <Form.Group controlId="formNome">
+            <Form.Control
+              type="text"
+              name="nome"
+              placeholder="Nome"
+              value={form.nome}
+              onChange={handleChange}
+              required
+            />
+            <Form.Control.Feedback type="invalid">Inserisci il tuo nome.</Form.Control.Feedback>
+          </Form.Group>
 
-          <button type="submit" disabled={loading}>
-            {loading ? "Invio in corso..." : "Invia"}
-          </button>
+          <Form.Group controlId="formEmail">
+            <Form.Control
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={form.email}
+              onChange={handleChange}
+              required
+            />
+            <Form.Control.Feedback type="invalid">Inserisci una email valida.</Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group controlId="formMessaggio">
+            <Form.Control
+              as="textarea"
+              name="messaggio"
+              placeholder="Messaggio"
+              rows={5}
+              value={form.messaggio}
+              onChange={handleChange}
+              required
+            />
+          </Form.Group>
+
+          <Button type="submit" disabled={loading}>
+            {loading ? "Invio..." : "Invia"}
+          </Button>
         </Row>
-      </Container>
-      {successo && <p className="text-success text-center mt-3">Messaggio inviato!</p>}
-      {errore && <p className="text-danger text-center mt-3">{errore}</p>}
-    </form>
+      </Form>
+
+      {successo && <p className="text-success mt-3">Messaggio inviato con successo!</p>}
+      {errore && <p className="text-danger mt-3">{errore}</p>}
+    </Container>
   );
 };
 

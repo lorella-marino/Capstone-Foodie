@@ -1,5 +1,5 @@
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { BsFacebook, BsInstagram, BsTwitter, BsYoutube } from "react-icons/bs";
+import { BsFacebook, BsInstagram, BsTwitter, BsTwitterX, BsX, BsYoutube } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -13,7 +13,7 @@ const Footer = () => {
           <div className="mb-3">
             <BsFacebook className="me-2 text-light" size={20} />
             <BsInstagram className="me-2 text-light" size={20} />
-            <BsTwitter className="me-2 text-light" size={20} />
+            <BsTwitterX className="me-2 text-light" size={20} />
             <BsYoutube className="me-2 text-light" size={20} />
           </div>
           <Row xs={1} sm={2} md={3} className="text-light text-start mb-3">

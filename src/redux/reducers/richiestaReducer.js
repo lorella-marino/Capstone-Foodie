@@ -1,4 +1,4 @@
-import { INVIA_RICHIESTA_ERRORE, INVIA_RICHIESTA_INIZIO, INVIA_RICHIESTA_SUCCESSO } from "../actions";
+import { INVIA_RICHIESTA_ERROR, INVIA_RICHIESTA_START, INVIA_RICHIESTA_SUCCESS } from "../actions";
 
 const initialState = {
   loading: false,
@@ -8,11 +8,11 @@ const initialState = {
 
 const richiestaReducer = (state = initialState, action) => {
   switch (action.type) {
-    case INVIA_RICHIESTA_INIZIO:
+    case INVIA_RICHIESTA_START:
       return { loading: true, successo: false, errore: null };
-    case INVIA_RICHIESTA_SUCCESSO:
+    case INVIA_RICHIESTA_SUCCESS:
       return { loading: false, successo: true, errore: null };
-    case INVIA_RICHIESTA_ERRORE:
+    case INVIA_RICHIESTA_ERROR:
       return { loading: false, successo: false, errore: action.payload };
     default:
       return state;
