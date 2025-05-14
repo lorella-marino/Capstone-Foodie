@@ -7,6 +7,8 @@ import LocationsAdmin from "./admin/LocationsAdmin";
 const Locations = () => {
   const dispatch = useDispatch();
   const locations = useSelector((state) => state.location?.list || []);
+  const { role } = useSelector((state) => state.login);
+  const isAdmin = role === "ROLE_ADMIN";
 
   useEffect(() => {
     dispatch(fetchLocations());
@@ -16,7 +18,7 @@ const Locations = () => {
     <Row id="locations">
       <Col>
         <h2>Locations</h2>
-        {/*  {isAdmin && <LocationsAdmin />} */}
+        {isAdmin && <LocationsAdmin />}
 
         {locations.map((loc) => (
           <a key={loc.id} href={loc.url} className="d-block text-black">

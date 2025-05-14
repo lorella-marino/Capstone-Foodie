@@ -72,15 +72,21 @@ export const login = (credentials) => async (dispatch) => {
     });
 
     if (res.ok) {
-      const data = await res.json();
-      dispatch({ type: LOGIN, payload: data });
-      localStorage.setItem("token", data.token);
+      const { token, username, role } = await res.json();
+
+      dispatch({
+        type: LOGIN,
+        payload: { token, username, role },
+      });
+
+      localStorage.setItem("token", token);
+
       return { success: true };
     } else {
       return { success: false };
     }
   } catch (error) {
-    console.error("Errore nel login:", error);
+    console.error("Login error:", error);
     return { success: false };
   }
 };

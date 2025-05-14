@@ -29,7 +29,7 @@ function LoginPage() {
 
     const result = await dispatch(login(form));
     if (result?.success) {
-      navigate("/user");
+      navigate("/locations");
     } else {
       setErrore(true);
     }

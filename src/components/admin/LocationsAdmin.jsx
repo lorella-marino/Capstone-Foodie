@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchLocations, addLocation, deleteLocation, updateLocation } from "../redux/actions/locationActions";
+import { addLocation, deleteLocation, fetchLocations, updateLocation } from "../../redux/actions";
 
 const LocationsAdmin = () => {
   const dispatch = useDispatch();
