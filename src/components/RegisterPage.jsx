@@ -18,15 +18,27 @@ function RegisterPage() {
     email: "",
   });
 
+  const [validated, setValidated] = useState(false);
+
   const handleSubmit = (event) => {
+    const formElement = event.currentTarget;
     event.preventDefault();
-    dispatch(register(form));
-    navigate("/login");
+
+    if (formElement.checkValidity() === false) {
+      event.stopPropagation();
+    } else {
+      dispatch(register(form));
+      navigate("/login");
+    }
+
+    setValidated(true);
   };
 
   return (
     <Container>
       <Form
+        noValidate
+        validated={validated}
         onSubmit={handleSubmit}
         className="d-flex flex-column justify-content-center align-items-center text-center"
         id="form"
@@ -40,7 +52,8 @@ function RegisterPage() {
                 value={form[field]}
                 onChange={(e) => setForm({ ...form, [field]: e.target.value })}
                 required
-              />
+              />{" "}
+              <Form.Control.Feedback type="invalid">Inserisci il campo richiesto.</Form.Control.Feedback>
             </Form.Group>
           ))}
           <Button type="submit">Registrati</Button>
