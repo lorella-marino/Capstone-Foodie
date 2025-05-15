@@ -12,7 +12,7 @@ const LocationsAdmin = () => {
 
   useEffect(() => {
     dispatch(fetchLocations());
-  }, [dispatch]);
+  }, [dispatch, locations.length]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,7 +24,7 @@ const LocationsAdmin = () => {
     setForm({ via: "", url: "", id: null });
   };
 
-  const handleEdit = (loc) => setForm(loc);
+  const handleEdit = (loc) => setForm({ via: loc.via, url: loc.url, id: loc.id });
   const handleDelete = (id) => dispatch(deleteLocation(id));
 
   return (

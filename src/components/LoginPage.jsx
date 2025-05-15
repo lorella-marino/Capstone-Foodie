@@ -2,7 +2,7 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { Container, Row } from "react-bootstrap";
 import { login } from "../redux/actions";
 
@@ -29,7 +29,7 @@ function LoginPage() {
 
     const result = await dispatch(login(form));
     if (result?.success) {
-      navigate("/locations");
+      navigate("/login");
     } else {
       setErrore(true);
     }

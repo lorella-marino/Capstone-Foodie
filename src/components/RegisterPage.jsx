@@ -20,15 +20,19 @@ function RegisterPage() {
 
   const [validated, setValidated] = useState(false);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     const formElement = event.currentTarget;
     event.preventDefault();
 
     if (formElement.checkValidity() === false) {
       event.stopPropagation();
     } else {
-      dispatch(register(form));
-      navigate("/login");
+      const result = await dispatch(register(form));
+      if (result.success) {
+        navigate("/login");
+      } else {
+        alert("Registrazione fallita.");
+      }
     }
 
     setValidated(true);
