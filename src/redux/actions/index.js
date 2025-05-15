@@ -1,4 +1,4 @@
-import axios from "axios";
+/* import axios from "axios"; */
 
 export const INVIA_RICHIESTA_START = "INVIA_RICHIESTA_START";
 export const INVIA_RICHIESTA_SUCCESS = "INVIA_RICHIESTA_SUCCESS";
@@ -65,7 +65,7 @@ export const updateLocation = (id, location) => async (dispatch) => {
 export const LOGIN = "LOGIN";
 export const REGISTER = "REGISTER";
 
-/* export const login = (credentials) => async (dispatch) => {
+export const login = (credentials) => async (dispatch) => {
   try {
     const res = await fetch("http://localhost:8080/api/auth/login", {
       method: "POST",
@@ -110,82 +110,9 @@ export const register = (formData) => async (dispatch) => {
     console.error("Errore nella registrazione:", error);
     return { success: false };
   }
-}; */
+};
 
 /* export const login = (credentials) => async (dispatch) => {
-  try {
-    const res = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(credentials),
-    });
-
-    if (!res.ok) {
-      throw new Error("Login request failed");
-    }
-
-    const { token, username, roles } = await res.json();
-
-    dispatch({
-      type: LOGIN,
-      payload: { token, username, roles },
-    });
-
-    localStorage.setItem("token", token);
-
-    return { success: true };
-  } catch (error) {
-    console.error("Login error:", error);
-    return { success: false };
-  }
-}; */
-
-/* export const register = (formData) => async (dispatch) => {
-  try {
-    const res = await fetch("http://localhost:8080/api/auth/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
-
-    if (res.ok) {
-      dispatch({ type: REGISTER });
-    } else {
-      throw new Error("Registration failed");
-    }
-  } catch (error) {
-    console.error("Errore nella registrazione:", error);
-    throw error;
-  }
-}; */
-
-/* export const register = (formData, role = "ROLE_USER") => {
-  return async (dispatch) => {
-    try {
-      const query = new URLSearchParams({ role });
-
-      const res = await fetch(`/api/auth/register?${query.toString()}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!res.ok) {
-        throw new Error("Registration request failed");
-      }
-
-      dispatch({ type: REGISTER });
-      return res;
-    } catch (error) {
-      console.error("Errore nella registrazione:", error);
-      throw error;
-    }
-  };
-}; */
-
-export const login = (credentials) => async (dispatch) => {
   try {
     const res = await axios.post("/api/auth/login", credentials);
     const { token, username, roles } = res.data;
@@ -215,4 +142,4 @@ export const register = (formData) => {
       throw error;
     }
   };
-};
+}; */
