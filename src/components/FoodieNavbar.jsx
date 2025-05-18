@@ -1,5 +1,5 @@
 import { Navbar, Nav, Container, Button, NavbarToggle } from "react-bootstrap";
-import { BsPersonCircle, BsPersonFill } from "react-icons/bs";
+import { BsPersonCircle } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 
 const FoodieNavbar = () => {
@@ -26,10 +26,6 @@ const FoodieNavbar = () => {
             <NavLink to="/contatti" className="nav-link">
               CONTATTI
             </NavLink>
-
-            <Button href="/login" id="ordinabutton">
-              ORDINA
-            </Button>
             <NavLink to="/login" className="nav-link me-0">
               <BsPersonCircle size={35} />
             </NavLink>

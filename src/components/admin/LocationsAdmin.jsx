@@ -67,12 +67,9 @@ const LocationsAdmin = () => {
         {locations.map((loc) => (
           <ListGroup.Item key={loc.id} className="d-flex justify-content-between align-items-center">
             <div>
-              <strong>{loc.via}</strong> –{" "}
-              <a href={loc.url} target="_blank" rel="noopener noreferrer">
-                {loc.url}
-              </a>
+              <strong>{loc.via}</strong>
             </div>
-            <div>
+            <div className="d-flex">
               <Button size="sm" onClick={() => handleEdit(loc)} className="me-2">
                 <BsFillPencilFill />
               </Button>

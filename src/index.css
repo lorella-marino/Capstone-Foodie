@@ -33,20 +33,6 @@ a.nav-link.show {
   color: #b46577 !important;
 }
 
-#ordinabutton {
-  background-color: #b56475;
-  border: none;
-  border-radius: 20px;
-  margin: 0 1rem;
-  padding: 0.4rem 1rem;
-  transition: background-color 0.3s ease;
-  font-weight: bold;
-}
-
-#ordinabutton:hover {
-  background-color: #944c61;
-}
-
 .custom-toggler {
   border: none !important;
   box-shadow: none !important;
@@ -102,6 +88,34 @@ footer a {
   transition: 0.3s;
 }
 
+.buttonhome p {
+  margin: 0.6rem;
+}
+
+.buttonhome:hover {
+  background-color: #944c61 !important;
+  color: white !important;
+  cursor: pointer;
+}
+
+#ordina {
+  font-family: "Berlin Sans FB", sans-serif;
+  font-size: 3.8rem;
+  line-height: 4rem;
+  width: 100%;
+  height: 100%;
+  padding: 1rem 0;
+  background-color: #426447;
+  border: none;
+  border-radius: 100px;
+  align-content: center;
+}
+
+#ordina:hover {
+  background-color: #2d4831 !important;
+  cursor: pointer;
+}
+
 /* CHI SIAMO */
 
 h2 {
@@ -134,7 +148,7 @@ h2 {
 }
 
 #locations a:hover {
-  color: #b46577;
+  color: #b46577 !important;
 }
 
 #putlocation button {
@@ -156,7 +170,30 @@ h2 {
   border-radius: 10px;
 }
 
-/* CONTATTI */
+/* CARRELLO */
+#carrello {
+  position: fixed;
+  top: 7rem;
+  right: 1rem;
+  width: 350px;
+  height: 100vh;
+  background-color: #faf6f0;
+  padding: 20px;
+  box-shadow: 0px 0px 10px 0px rgb(198, 198, 198);
+  overflow-y: auto;
+  z-index: 1050;
+}
+
+@media (max-width: 768px) {
+  #carrello {
+    width: 91%;
+    top: auto;
+    bottom: 0;
+    height: 30vh;
+  }
+}
+
+/* FORM*/
 /* #formcontatti,
 #formregister {
   background-image: linear-gradient(rgba(255, 255, 255, 0.907), rgba(255, 255, 255, 0.873)),
@@ -183,7 +220,7 @@ h2 {
 
 #form button,
 #buttonregister {
-  background-color: #b56475;
+  background-color: #b46577;
   color: white;
   width: 35%;
 }

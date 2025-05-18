@@ -9,6 +9,7 @@ import Locations from "./components/Locations";
 import Contatti from "./components/Contatti";
 import LoginPage from "./components/LoginPage";
 import RegisterPage from "./components/RegisterPage";
+import Menu from "./components/Menu";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/contatti" element={<Contatti />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/registrazione" element={<RegisterPage />} />
+          <Route path="/menu" element={<Menu />} />
         </Routes>
       </Container>
       <Footer />
