@@ -15,6 +15,7 @@ function RegisterPage() {
     nome: "",
     cognome: "",
     telefono: "",
+    indirizzo: "",
     email: "",
   });
 
@@ -48,7 +49,7 @@ function RegisterPage() {
         id="form"
       >
         <Row className="w-25 justify-content-center">
-          {["Username", "Password", "Nome", "Cognome", "Telefono", "Email"].map((field) => (
+          {["username", "password", "nome", "cognome", "telefono", "indirizzo", "email"].map((field) => (
             <Form.Group controlId={field} key={field}>
               <Form.Control
                 type={field === "password" ? "password" : "text"}

@@ -35,29 +35,62 @@ export const fetchLocations = () => async (dispatch) => {
   dispatch({ type: FETCH_LOCATIONS_SUCCESS, payload: data });
 };
 
-export const addLocation = (location) => async (dispatch) => {
+export const addLocation = (location) => async (dispatch, getState) => {
+  const token = getState().login.token;
+
   const res = await fetch("http://localhost:8080/api/locations", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify(location),
   });
+
+  if (!res.ok) {
+    console.error("Errore nella creazione:", await res.text());
+    return;
+  }
+
   const data = await res.json();
   dispatch({ type: ADD_LOCATION_SUCCESS, payload: data });
 };
 
-export const deleteLocation = (id) => async (dispatch) => {
-  await fetch(`http://localhost:8080/api/locations/${id}`, {
+export const deleteLocation = (id) => async (dispatch, getState) => {
+  const token = getState().login.token;
+
+  const res = await fetch(`http://localhost:8080/api/locations/${id}`, {
     method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
+
+  if (!res.ok) {
+    console.error("Errore nella cancellazione:", await res.text());
+    return;
+  }
+
   dispatch({ type: DELETE_LOCATION_SUCCESS, payload: id });
 };
 
-export const updateLocation = (id, location) => async (dispatch) => {
+export const updateLocation = (id, location) => async (dispatch, getState) => {
+  const token = getState().login.token;
+
   const res = await fetch(`http://localhost:8080/api/locations/${id}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify(location),
   });
+
+  if (!res.ok) {
+    console.error("Errore nella modifica:", await res.text());
+    return;
+  }
+
   const data = await res.json();
   dispatch({ type: UPDATE_LOCATION_SUCCESS, payload: data });
 };
@@ -79,6 +112,8 @@ export const login = (credentials) => async (dispatch) => {
         type: LOGIN,
         payload: { token, username, roles },
       });
+
+      localStorage.setItem("token", token);
 
       return { success: true };
     } else {
