@@ -147,34 +147,18 @@ export const register = (formData) => async (dispatch) => {
   }
 };
 
-/* export const login = (credentials) => async (dispatch) => {
+export const FETCH_MENU_START = "FETCH_MENU_START";
+export const FETCH_MENU_SUCCESS = "FETCH_MENU_SUCCESS";
+export const FETCH_MENU_ERROR = "FETCH_MENU_ERROR";
+
+export const fetchMenu = () => async (dispatch) => {
+  dispatch({ type: FETCH_MENU_START });
   try {
-    const res = await axios.post("/api/auth/login", credentials);
-    const { token, username, roles } = res.data;
-
-    dispatch({
-      type: LOGIN,
-      payload: { token, username, roles },
-    });
-
-    localStorage.setItem("token", token);
-
-    return { success: true };
+    const res = await fetch("http://localhost:8080/api/menu");
+    if (!res.ok) throw new Error("Errore nella fetch del menu");
+    const data = await res.json();
+    dispatch({ type: FETCH_MENU_SUCCESS, payload: data });
   } catch (error) {
-    console.error("Login error:", error);
-    return { success: false };
+    dispatch({ type: FETCH_MENU_ERROR, payload: error.message });
   }
 };
-
-export const register = (formData) => {
-  return async (dispatch) => {
-    try {
-      const res = await axios.post("/api/auth/register", formData);
-      dispatch({ type: REGISTER });
-      return res;
-    } catch (error) {
-      console.error("Errore nella registrazione:", error);
-      throw error;
-    }
-  };
-}; */

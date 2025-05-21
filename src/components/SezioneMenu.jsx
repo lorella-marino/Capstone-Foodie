@@ -1,16 +1,19 @@
 import CardMenu from "./CardMenu";
 
-const SezioneMenu = ({ titolo, prodotti }) => {
+const SezioneMenu = ({ nome, prodotti }) => {
   return (
     <div className="sezionemenu">
-      <h2>{titolo}</h2>
+      <h2>{nome}</h2>
       <div className="menuitems">
         {prodotti.map((prodotto, index) => (
           <CardMenu
             key={index}
-            titolo={prodotto.titolo}
+            nome={prodotto.nome}
             descrizione={prodotto.descrizione}
             immagine={prodotto.immagine}
+            prezzo={prodotto.prezzo}
+            calorie={prodotto.calorie}
+            topping={prodotto.topping}
           />
         ))}
       </div>

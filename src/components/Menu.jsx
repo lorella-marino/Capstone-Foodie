@@ -1,47 +1,36 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Spinner } from "react-bootstrap";
 import SezioneMenu from "./SezioneMenu";
 import CardMenu from "./CardMenu";
 import Carrello from "./Carrello";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchMenu } from "../redux/actions";
 
 const Menu = () => {
-  const prodottiBowl = [
-    {
-      titolo: "Chicken Pesto Parm",
-      descrizione: "couscous, pollo, pesto",
-      immagine:
-        "https://images.ctfassets.net/eum7w7yri3zr/5Kw3escovLNb8uWqQuzR7o/fb77087267c6de716f49d50ff755ede5/SG_Web_Image_Bowl_Chicken_Pesto_Parm.png?w=600&fm=avif&q=75",
-    },
-    {
-      titolo: "Tofu Bowl",
-      descrizione: "riso, tofu, avocado",
-      immagine: "https://via.placeholder.com/300x200",
-    },
-  ];
+  const dispatch = useDispatch();
+  const { prodotti, loading, error } = useSelector((state) => state.menu);
 
-  const prodottiBurger = [
-    {
-      titolo: "Smash Burger",
-      descrizione: "manzo, cheddar, cipolle caramellate",
-      immagine: "https://via.placeholder.com/300x200",
-    },
-  ];
+  useEffect(() => {
+    dispatch(fetchMenu());
+  }, [dispatch]);
 
-  const prodottiBevande = [
-    {
-      titolo: "Tè Verde",
-      descrizione: "senza zucchero",
-      immagine: "https://via.placeholder.com/300x200",
-    },
-  ];
+  const gruppiPerSezione = prodotti.reduce((acc, prodotto) => {
+    const sezione = prodotto.sezione || "Altro";
+    if (!acc[sezione]) acc[sezione] = [];
+    acc[sezione].push(prodotto);
+    return acc;
+  }, {});
 
   return (
     <Container fluid>
       <Row>
         <Col xs={12} lg={9}>
           <div className="menu">
-            <SezioneMenu titolo="Bowl" prodotti={prodottiBowl} />
-            <SezioneMenu titolo="Hamburger" prodotti={prodottiBurger} />
-            <SezioneMenu titolo="Bevande" prodotti={prodottiBevande} />
+            {loading && <Spinner animation="border" />}
+            {error && <p>{error}</p>}
+            {Object.entries(gruppiPerSezione).map(([sezione, listaProdotti]) => (
+              <SezioneMenu key={sezione} nome={sezione} prodotti={listaProdotti} />
+            ))}
           </div>
         </Col>
         <Col xs={12} lg={3}>
