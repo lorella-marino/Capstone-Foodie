@@ -151,7 +151,7 @@ h2 {
   color: #b46577 !important;
 }
 
-#putlocation button {
+#put button {
   background-color: #839770;
   padding: 0.6rem 0.8rem;
   margin: 0;
@@ -160,12 +160,12 @@ h2 {
   transition: 0.3s;
 }
 
-#putlocation button:hover {
+#put button:hover {
   background-color: #2d4831 !important;
   cursor: pointer;
 }
 
-#putlocation {
+#put {
   margin: 1rem 0;
   border-radius: 10px;
 }
@@ -198,9 +198,6 @@ h2 {
   transition: 0.3s;
 }
 
-#form:hover {
-}
-
 @media (max-width: 768px) {
   #carrello {
     width: 91%;
@@ -218,6 +215,10 @@ h2 {
 #prodotticarrello p {
   margin: 0.2rem;
   font-weight: 500;
+}
+
+td {
+  align-content: baseline;
 }
 
 /* MENU */
@@ -305,6 +306,7 @@ h2 {
 #form input,
 #form textarea,
 #form button,
+#form select,
 #buttonregister {
   background-color: #faf6f0;
   padding: 0.6rem 0.8rem;

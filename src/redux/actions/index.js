@@ -24,15 +24,15 @@ export const inviaRichiesta = (form) => async (dispatch) => {
   }
 };
 
-export const FETCH_LOCATIONS_SUCCESS = "FETCH_LOCATIONS_SUCCESS";
-export const ADD_LOCATION_SUCCESS = "ADD_LOCATION_SUCCESS";
-export const DELETE_LOCATION_SUCCESS = "DELETE_LOCATION_SUCCESS";
-export const UPDATE_LOCATION_SUCCESS = "UPDATE_LOCATION_SUCCESS";
+export const FETCH_LOCATIONS = "FETCH_LOCATIONS";
+export const ADD_LOCATION = "ADD_LOCATION";
+export const DELETE_LOCATION = "DELETE_LOCATION";
+export const UPDATE_LOCATION = "UPDATE_LOCATION";
 
 export const fetchLocations = () => async (dispatch) => {
   const res = await fetch("http://localhost:8080/api/locations");
   const data = await res.json();
-  dispatch({ type: FETCH_LOCATIONS_SUCCESS, payload: data });
+  dispatch({ type: FETCH_LOCATIONS, payload: data });
 };
 
 export const addLocation = (location) => async (dispatch, getState) => {
@@ -53,7 +53,7 @@ export const addLocation = (location) => async (dispatch, getState) => {
   }
 
   const data = await res.json();
-  dispatch({ type: ADD_LOCATION_SUCCESS, payload: data });
+  dispatch({ type: ADD_LOCATION, payload: data });
 };
 
 export const deleteLocation = (id) => async (dispatch, getState) => {
@@ -71,7 +71,7 @@ export const deleteLocation = (id) => async (dispatch, getState) => {
     return;
   }
 
-  dispatch({ type: DELETE_LOCATION_SUCCESS, payload: id });
+  dispatch({ type: DELETE_LOCATION, payload: id });
 };
 
 export const updateLocation = (id, location) => async (dispatch, getState) => {
@@ -92,7 +92,7 @@ export const updateLocation = (id, location) => async (dispatch, getState) => {
   }
 
   const data = await res.json();
-  dispatch({ type: UPDATE_LOCATION_SUCCESS, payload: data });
+  dispatch({ type: UPDATE_LOCATION, payload: data });
 };
 
 export const LOGIN = "LOGIN";
@@ -181,3 +181,96 @@ export const updateNote = (id, note) => ({
   type: UPDATE_NOTE,
   payload: { id, note },
 });
+
+export const ADD_PRODOTTO = "ADD_PRODOTTO";
+export const DELETE_PRODOTTO = "DELETE_PRODOTTO";
+export const UPDATE_PRODOTTO = "UPDATE_PRODOTTO";
+
+export const addProdotto = (formData, file) => async (dispatch) => {
+  try {
+    const res = await fetch("http://localhost:8080/api/menu", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!res.ok) throw new Error("Errore nella creazione del prodotto");
+
+    const nuovoProdotto = await res.json();
+    dispatch({ type: "ADD_PRODOTTO", payload: nuovoProdotto });
+
+    if (file) {
+      const formImg = new FormData();
+      formImg.append("file", file);
+
+      const uploadRes = await fetch(`http://localhost:8080/api/menu/${nuovoProdotto.id}/immagine`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: formImg,
+      });
+
+      if (!uploadRes.ok) throw new Error("Errore upload immagine");
+
+      dispatch(fetchMenu());
+    }
+
+    return nuovoProdotto;
+  } catch (error) {
+    dispatch({ type: "MENU_ERROR", payload: error.message });
+    console.error("Errore addProdotto:", error);
+  }
+};
+
+export const deleteProdotto = (id) => async (dispatch, getState) => {
+  const token = getState().login.token;
+
+  const res = await fetch(`http://localhost:8080/api/menu/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) {
+    console.error("Errore eliminazione:", await res.text());
+    return;
+  }
+
+  dispatch({ type: DELETE_PRODOTTO, payload: id });
+};
+export const updateProdotto = (id, data, file) => async (dispatch) => {
+  dispatch({ type: "MENU_LOADING" });
+
+  try {
+    await fetch(`http://localhost:8080/api/menu/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      await fetch(`http://localhost:8080/api/menu/${id}/immagine`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: formData,
+      });
+    }
+
+    dispatch(fetchMenu());
+  } catch (error) {
+    dispatch({ type: "MENU_ERROR", payload: error.message });
+  }
+};

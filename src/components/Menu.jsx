@@ -5,6 +5,8 @@ import Carrello from "./Carrello";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchMenu } from "../redux/actions";
+import MenuAdmin from "./admin/MenuAdmin";
+import { isAdmin } from "../utils/getUserRoles";
 
 const Menu = () => {
   const dispatch = useDispatch();
@@ -25,27 +27,31 @@ const Menu = () => {
 
   return (
     <Container fluid>
-      <Row>
-        <Col xs={12} lg={9}>
-          <div className="menu">
-            {loading && <Spinner animation="border" />}
-            {error && <p>{error}</p>}
-            {SEZIONI.map((sezione) =>
-              gruppiPerSezione[sezione] ? (
-                <SezioneMenu key={sezione} sezione={sezione} prodotti={gruppiPerSezione[sezione]} />
-              ) : (
-                <div key={sezione}>
-                  <h2>{sezione}</h2>
-                  <p>Nessun prodotto in questa sezione</p>
-                </div>
-              )
-            )}
-          </div>
-        </Col>
-        <Col xs={12} lg={3}>
-          <Carrello />
-        </Col>
-      </Row>
+      {isAdmin() ? (
+        <MenuAdmin />
+      ) : (
+        <Row>
+          <Col xs={12} lg={9}>
+            <div className="menu">
+              {loading && <Spinner animation="border" />}
+              {error && <p>{error}</p>}
+              {SEZIONI.map((sezione) =>
+                gruppiPerSezione[sezione] ? (
+                  <SezioneMenu key={sezione} sezione={sezione} prodotti={gruppiPerSezione[sezione]} />
+                ) : (
+                  <div key={sezione}>
+                    <h2>{sezione}</h2>
+                    <p>Nessun prodotto in questa sezione</p>
+                  </div>
+                )
+              )}
+            </div>
+          </Col>
+          <Col xs={12} lg={3}>
+            <Carrello />
+          </Col>
+        </Row>
+      )}
     </Container>
   );
 };

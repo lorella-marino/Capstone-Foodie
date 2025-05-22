@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addLocation, deleteLocation, fetchLocations, updateLocation } from "../../redux/actions";
-import { Container, Form, Button, Row, Col, ListGroup } from "react-bootstrap";
+import { Container, Form, Button, Row, Col, ListGroup, Table } from "react-bootstrap";
 import { BsFillPencilFill, BsFillTrash3Fill } from "react-icons/bs";
 
 const LocationsAdmin = () => {
@@ -28,8 +28,8 @@ const LocationsAdmin = () => {
   const handleDelete = (id) => dispatch(deleteLocation(id));
 
   return (
-    <Container className="mt-1 px-0 ">
-      <Form onSubmit={handleSubmit} className="mb-4" id="form">
+    <Container className="px-0">
+      <Form onSubmit={handleSubmit} className="mb-4 p-0" id="form">
         <Row>
           <Col md={4}>
             <Form.Group controlId="formVia">
@@ -63,23 +63,29 @@ const LocationsAdmin = () => {
         </Row>
       </Form>
 
-      <ListGroup id="putlocation">
-        {locations.map((loc) => (
-          <ListGroup.Item key={loc.id} className="d-flex justify-content-between align-items-center">
-            <div>
-              <strong>{loc.via}</strong>
-            </div>
-            <div className="d-flex">
-              <Button size="sm" onClick={() => handleEdit(loc)} className="me-2">
-                <BsFillPencilFill />
-              </Button>
-              <Button size="sm" onClick={() => handleDelete(loc.id)} style={{ backgroundColor: "#426447" }}>
-                <BsFillTrash3Fill />
-              </Button>
-            </div>
-          </ListGroup.Item>
-        ))}
-      </ListGroup>
+      <Table id="put">
+        <tbody>
+          {locations.map((loc) => (
+            <tr key={loc.id}>
+              <td>
+                <strong>{loc.via}</strong>
+              </td>
+              <td className="d-flex justify-content-end align-items-baseline">
+                <Button size="sm" onClick={() => handleEdit(loc)} className="me-2">
+                  <BsFillPencilFill />
+                </Button>
+                <Button
+                  size="sm"
+                  onClick={() => handleDelete(loc.id)}
+                  style={{ backgroundColor: "#426447", borderColor: "#426447" }}
+                >
+                  <BsFillTrash3Fill />
+                </Button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
     </Container>
   );
 };
