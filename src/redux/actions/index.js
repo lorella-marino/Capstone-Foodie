@@ -162,3 +162,22 @@ export const fetchMenu = () => async (dispatch) => {
     dispatch({ type: FETCH_MENU_ERROR, payload: error.message });
   }
 };
+
+export const ADD_TO_CART = "ADD_TO_CART";
+export const UPDATE_NOTE = "UPDATE_NOTE";
+export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
+
+export const addToCart = (prodotto) => ({
+  type: ADD_TO_CART,
+  payload: prodotto,
+});
+
+export const removeFromCart = (id, toppings) => ({
+  type: REMOVE_FROM_CART,
+  payload: { id, toppings },
+});
+
+export const updateNote = (id, note) => ({
+  type: UPDATE_NOTE,
+  payload: { id, note },
+});

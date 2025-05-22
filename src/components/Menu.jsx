@@ -15,11 +15,13 @@ const Menu = () => {
   }, [dispatch]);
 
   const gruppiPerSezione = prodotti.reduce((acc, prodotto) => {
-    const sezione = prodotto.sezione || "Altro";
+    const sezione = prodotto.sezioneMenu;
     if (!acc[sezione]) acc[sezione] = [];
     acc[sezione].push(prodotto);
     return acc;
   }, {});
+
+  const SEZIONI = ["BOWLS", "HAMBURGERS", "BEVANDE"];
 
   return (
     <Container fluid>
@@ -28,9 +30,16 @@ const Menu = () => {
           <div className="menu">
             {loading && <Spinner animation="border" />}
             {error && <p>{error}</p>}
-            {Object.entries(gruppiPerSezione).map(([sezione, listaProdotti]) => (
-              <SezioneMenu key={sezione} nome={sezione} prodotti={listaProdotti} />
-            ))}
+            {SEZIONI.map((sezione) =>
+              gruppiPerSezione[sezione] ? (
+                <SezioneMenu key={sezione} sezione={sezione} prodotti={gruppiPerSezione[sezione]} />
+              ) : (
+                <div key={sezione}>
+                  <h2>{sezione}</h2>
+                  <p>Nessun prodotto in questa sezione</p>
+                </div>
+              )
+            )}
           </div>
         </Col>
         <Col xs={12} lg={3}>

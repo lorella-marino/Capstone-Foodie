@@ -3,12 +3,14 @@ import richiestaReducer from "../reducers/richiestaReducer";
 import { locationReducer } from "../reducers/locationReducer";
 import loginReducer from "../reducers/loginReducer";
 import menuReducer from "../reducers/menuReducer";
+import carrelloReducer from "../reducers/carrelloReducer";
 
 const mainReducer = combineReducers({
   richiesta: richiestaReducer,
   login: loginReducer,
   location: locationReducer,
   menu: menuReducer,
+  carrello: carrelloReducer,
 });
 
 const store = configureStore({
