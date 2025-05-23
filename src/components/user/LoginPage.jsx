@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { Container, Row } from "react-bootstrap";
-import { login } from "../redux/actions";
+import { login } from "../../redux/actions";
 
 function LoginPage() {
   const dispatch = useDispatch();

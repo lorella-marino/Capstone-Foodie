@@ -2,7 +2,7 @@ import { Card, Row, Col, Button } from "react-bootstrap";
 import { useRef, useState } from "react";
 import { BsFillCaretLeftFill, BsFillCaretRightFill } from "react-icons/bs";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../redux/actions";
+import { addToCart } from "../../redux/actions";
 import { BiCart } from "react-icons/bi";
 
 const CardMenu = ({ id, nome, descrizione, prezzo, calorie, immagine, topping }) => {

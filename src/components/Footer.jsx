@@ -1,6 +1,5 @@
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { BsFacebook, BsInstagram, BsTwitter, BsTwitterX, BsX, BsYoutube } from "react-icons/bs";
-import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (

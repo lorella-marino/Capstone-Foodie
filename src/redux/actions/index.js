@@ -16,11 +16,14 @@ export const inviaRichiesta = (form) => async (dispatch) => {
 
     if (res.ok) {
       dispatch({ type: INVIA_RICHIESTA_SUCCESS });
+      return { success: true };
     } else {
       dispatch({ type: INVIA_RICHIESTA_ERROR, payload: "Errore nell'invio" });
+      return { success: false };
     }
   } catch {
     dispatch({ type: INVIA_RICHIESTA_ERROR, payload: "Errore di connessione" });
+    return { success: false };
   }
 };
 
@@ -164,22 +167,37 @@ export const fetchMenu = () => async (dispatch) => {
 };
 
 export const ADD_TO_CART = "ADD_TO_CART";
-export const UPDATE_NOTE = "UPDATE_NOTE";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 
-export const addToCart = (prodotto) => ({
-  type: ADD_TO_CART,
-  payload: prodotto,
-});
+export const addToCart = (prodotto) => {
+  const prezzoToppings = prodotto.toppings?.reduce((acc, t) => acc + t.prezzo, 0) || 0;
+  const prezzoTotale = prodotto.prezzo + prezzoToppings;
+
+  return {
+    type: ADD_TO_CART,
+    payload: {
+      ...prodotto,
+      prezzo: prezzoTotale,
+    },
+  };
+};
 
 export const removeFromCart = (id, toppings) => ({
   type: REMOVE_FROM_CART,
   payload: { id, toppings },
 });
 
-export const updateNote = (id, note) => ({
+export const INVIA_NOTA = "INVIA_NOTA";
+export const UPDATE_NOTE = "UPDATE_NOTE";
+
+export const inviaNota = (id, toppings, notaInviata) => ({
+  type: INVIA_NOTA,
+  payload: { id, toppings, notaInviata },
+});
+
+export const updateNote = (id, toppings, note) => ({
   type: UPDATE_NOTE,
-  payload: { id, note },
+  payload: { id, toppings, note },
 });
 
 export const ADD_PRODOTTO = "ADD_PRODOTTO";
@@ -188,13 +206,18 @@ export const UPDATE_PRODOTTO = "UPDATE_PRODOTTO";
 
 export const addProdotto = (formData, file) => async (dispatch) => {
   try {
-    const res = await fetch("http://localhost:8080/api/menu", {
+    const res = await fetch(`http://localhost:8080/api/menu?sezioneMenu=${formData.sezioneMenu}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({
+        nome: formData.nome,
+        descrizione: formData.descrizione,
+        prezzo: formData.prezzo,
+        calorie: formData.calorie,
+      }),
     });
 
     if (!res.ok) throw new Error("Errore nella creazione del prodotto");
@@ -206,7 +229,7 @@ export const addProdotto = (formData, file) => async (dispatch) => {
       const formImg = new FormData();
       formImg.append("file", file);
 
-      const uploadRes = await fetch(`http://localhost:8080/api/menu/${nuovoProdotto.id}/immagine`, {
+      const uploadImg = await fetch(`http://localhost:8080/api/menu/${nuovoProdotto.id}/immagine`, {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -214,7 +237,7 @@ export const addProdotto = (formData, file) => async (dispatch) => {
         body: formImg,
       });
 
-      if (!uploadRes.ok) throw new Error("Errore upload immagine");
+      if (!uploadImg.ok) throw new Error("Errore upload immagine");
 
       dispatch(fetchMenu());
     }

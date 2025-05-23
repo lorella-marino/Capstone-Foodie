@@ -1,12 +1,11 @@
 import { Col, Container, Row, Spinner } from "react-bootstrap";
 import SezioneMenu from "./SezioneMenu";
-import CardMenu from "./CardMenu";
-import Carrello from "./Carrello";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchMenu } from "../redux/actions";
-import MenuAdmin from "./admin/MenuAdmin";
-import { isAdmin } from "../utils/getUserRoles";
+import { fetchMenu } from "../../redux/actions";
+import MenuAdmin from "../admin/MenuAdmin";
+import { isAdmin } from "../../utils/getUserRoles";
+import Carrello from "./Carrello";
 
 const Menu = () => {
   const dispatch = useDispatch();

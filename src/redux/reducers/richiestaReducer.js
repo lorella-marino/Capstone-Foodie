@@ -14,6 +14,13 @@ const richiestaReducer = (state = initialState, action) => {
       return { loading: false, successo: true, errore: null };
     case INVIA_RICHIESTA_ERROR:
       return { loading: false, successo: false, errore: action.payload };
+    case "RESET_RICHIESTA":
+      return {
+        ...state,
+        successo: false,
+        errore: null,
+      };
+
     default:
       return state;
   }

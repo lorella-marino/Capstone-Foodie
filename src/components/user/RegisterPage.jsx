@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Container, Row } from "react-bootstrap";
-import { register } from "../redux/actions";
+import { register } from "../../redux/actions";
 
 function RegisterPage() {
   const dispatch = useDispatch();

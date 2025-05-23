@@ -170,19 +170,26 @@ h2 {
   border-radius: 10px;
 }
 
-/* CARRELLO */
+/* MENU e CARRELLO */
+
 #carrello {
   position: fixed;
   top: 7rem;
   right: 1rem;
   width: 350px;
   height: 84%;
-  background-color: #faf6f0;
+  background-color: #a98e60;
+  color: white;
   padding: 20px;
-  border-radius: 20px;
+  border-radius: 20px 20px 0 0;
   box-shadow: 0px 0px 10px 0px rgb(198, 198, 198);
   overflow-y: auto;
   z-index: 1050;
+}
+
+#carrello h2 {
+  color: #faf6f079 !important;
+  font-weight: 600;
 }
 
 #contenuto {
@@ -191,11 +198,31 @@ h2 {
   margin-top: 1rem;
 }
 
-#form {
+#carrello #form {
+  background-color: #faf6f05b;
+  border: none;
   padding: 0.4rem 0.8rem;
-  margin: 0.3rem 0 1.5rem 0;
+  margin: 0.3rem 0 0.8rem 0;
   border-radius: 10px;
   transition: 0.3s;
+}
+
+.form-control:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 0 rgba(255, 180, 0, 0.5) !important;
+}
+
+#carrello .buttoninvia {
+  background-color: #faf6f05b;
+  color: #393939b5;
+  margin: 0.3rem 0 0.8rem 0 !important;
+  padding: 0.4rem 0.9rem !important;
+}
+
+#carrello .buttoninvia:hover {
+  background-color: #faf6f0ae;
+  color: #839770;
+  cursor: pointer;
 }
 
 @media (max-width: 768px) {
@@ -220,8 +247,6 @@ h2 {
 td {
   align-content: baseline;
 }
-
-/* MENU */
 
 .card {
   border: none !important;
@@ -281,7 +306,7 @@ td {
 
 .buttonlr {
   color: #839770 !important;
-  font-size: 2rem;
+  font-size: 3rem;
   transition: 0.3s;
 }
 

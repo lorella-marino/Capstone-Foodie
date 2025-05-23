@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { inviaRichiesta } from "../redux/actions";
 import { Button, Container, Form, Row } from "react-bootstrap";
 
@@ -29,9 +29,20 @@ const Contatti = () => {
     const result = await dispatch(inviaRichiesta(form));
 
     if (result?.success) {
-      setForm({ nome: "", email: "", messaggio: "" }); // resetta il form dopo l'invio
+      setForm({ nome: "", email: "", messaggio: "" });
+      setValidated(false);
     }
   };
+
+  useEffect(() => {
+    if (successo) {
+      const timer = setTimeout(() => {
+        dispatch({ type: "RESET_RICHIESTA" });
+      }, 3000); // 3 secondi
+
+      return () => clearTimeout(timer);
+    }
+  }, [successo, dispatch]);
 
   return (
     <Container className="text-center">
@@ -88,8 +99,8 @@ const Contatti = () => {
         </Row>
       </Form>
 
-      {successo && <p className="text-success mt-3">Messaggio inviato con successo!</p>}
-      {errore && <p className="text-danger mt-3">{errore}</p>}
+      {successo && <p className="text-success mt-2">Messaggio inviato con successo!</p>}
+      {errore && <p className="text-danger mt-2">{errore}</p>}
     </Container>
   );
 };

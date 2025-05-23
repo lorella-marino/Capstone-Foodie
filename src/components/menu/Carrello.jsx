@@ -1,14 +1,18 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { removeFromCart, updateNote } from "../redux/actions";
 import { BsFillTrash3Fill } from "react-icons/bs";
+import { inviaNota, removeFromCart, updateNote } from "../../redux/actions";
 
 const Carrello = () => {
   const { items } = useSelector((state) => state.carrello);
   const dispatch = useDispatch();
 
-  const handleNoteChange = (id, value) => {
-    dispatch(updateNote(id, value));
+  const handleInviaNota = (id, toppings, note) => {
+    dispatch(inviaNota(id, toppings, note));
+  };
+
+  const handleNoteChange = (id, toppings, value) => {
+    dispatch(updateNote(id, toppings, value));
   };
 
   const handleRemove = (id, toppings) => {
@@ -42,6 +46,11 @@ const Carrello = () => {
                     <p>
                       x {item.quantità} = {(item.prezzo * item.quantità).toFixed(2)} €
                     </p>
+                    {item.notaInviata && (
+                      <p className="mb-1" style={{ fontSize: "0.9rem", fontWeight: "100" }}>
+                        Nota: {item.notaInviata}
+                      </p>
+                    )}
                   </Col>
                   <Col xs={3} className="text-end ">
                     <Button onClick={() => handleRemove(item.id, item.toppings)}>
@@ -49,13 +58,22 @@ const Carrello = () => {
                     </Button>
                   </Col>
                 </Row>
-                <Form.Control
-                  id="form"
-                  type="text"
-                  placeholder="Note per questo prodotto..."
-                  value={item.note}
-                  onChange={(e) => handleNoteChange(id, e.target.value)}
-                />
+                <Row className="m-0">
+                  <Col xs={9} className="p-0">
+                    <Form.Control
+                      id="form"
+                      type="text"
+                      placeholder="Note per questo prodotto..."
+                      value={item.note}
+                      onChange={(e) => handleNoteChange(item.id, item.toppings, e.target.value)}
+                    />
+                  </Col>
+                  <Col xs={3} className="p-0 d-flex justify-content-end">
+                    <Button className="buttoninvia" onClick={() => handleInviaNota(item.id, item.toppings, item.note)}>
+                      Invia
+                    </Button>
+                  </Col>
+                </Row>
               </div>
             ))}
 

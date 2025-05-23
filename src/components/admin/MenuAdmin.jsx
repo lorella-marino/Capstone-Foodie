@@ -82,7 +82,7 @@ const MenuAdmin = () => {
           </Col>
         </Row>
         <div className="d-flex justify-content-center">
-          <Button type="submit" className="px-0 mx-0">
+          <Button type="submit" style={{ width: "12rem" }}>
             {editingId ? "Salva modifiche" : "Aggiungi"}
           </Button>
         </div>

@@ -1,4 +1,4 @@
-import { ADD_TO_CART, REMOVE_FROM_CART, UPDATE_NOTE } from "../actions";
+import { ADD_TO_CART, INVIA_NOTA, REMOVE_FROM_CART, UPDATE_NOTE } from "../actions";
 
 const initialState = {
   items: [],
@@ -38,13 +38,30 @@ const carrelloReducer = (state = initialState, action) => {
         ),
       };
 
+    case INVIA_NOTA:
+      return {
+        ...state,
+        items: state.items.map((item) =>
+          item.id === action.payload.id && JSON.stringify(item.toppings) === JSON.stringify(action.payload.toppings)
+            ? {
+                ...item,
+                notaInviata: action.payload.notaInviata,
+                note: "", // resetta il campo dopo invio
+              }
+            : item
+        ),
+      };
+
     case UPDATE_NOTE:
       return {
         ...state,
-        items: state.items.map((item, idx) =>
-          idx === action.payload.index ? { ...item, note: action.payload.note } : item
+        items: state.items.map((item) =>
+          item.id === action.payload.id && JSON.stringify(item.toppings) === JSON.stringify(action.payload.toppings)
+            ? { ...item, note: action.payload.note }
+            : item
         ),
       };
+
     default:
       return state;
   }
