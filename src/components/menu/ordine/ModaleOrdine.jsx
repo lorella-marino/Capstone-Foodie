@@ -1,14 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Form, Modal } from "react-bootstrap";
 import ModaleFinale from "./ModaleFinale";
-import { svuotaCarrello } from "../../../redux/actions";
+import { fetchLocations, svuotaCarrello } from "../../../redux/actions";
 import RecapOrdine from "./RecapOrdine";
 
 const ModaleOrdine = ({ show, onHide, onConferma }) => {
   const dispatch = useDispatch();
   const locations = useSelector((state) => state.location?.list || []);
   const items = useSelector((state) => state.carrello.items);
+
+  useEffect(() => {
+    if (show) {
+      dispatch(fetchLocations());
+    }
+  }, [show, dispatch]);
 
   const [tipoConsegna, setTipoConsegna] = useState(null);
   const [indirizzo, setIndirizzo] = useState("");

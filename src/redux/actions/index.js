@@ -31,11 +31,23 @@ export const FETCH_LOCATIONS = "FETCH_LOCATIONS";
 export const ADD_LOCATION = "ADD_LOCATION";
 export const DELETE_LOCATION = "DELETE_LOCATION";
 export const UPDATE_LOCATION = "UPDATE_LOCATION";
+export const FETCH_LOCATIONS_START = "FETCH_LOCATIONS_START";
+export const FETCH_LOCATIONS_SUCCESS = "FETCH_LOCATIONS_SUCCESS";
+export const FETCH_LOCATIONS_ERROR = "FETCH_LOCATIONS_ERROR";
 
 export const fetchLocations = () => async (dispatch) => {
-  const res = await fetch("http://localhost:8080/api/locations");
-  const data = await res.json();
-  dispatch({ type: FETCH_LOCATIONS, payload: data });
+  dispatch({ type: FETCH_LOCATIONS_START });
+  try {
+    console.log("Fetch locations started");
+    const res = await fetch("http://localhost:8080/api/locations");
+    if (!res.ok) throw new Error("Errore nella fetch delle locations");
+    const data = await res.json();
+    console.log("Fetch locations success", data);
+    dispatch({ type: FETCH_LOCATIONS, payload: data });
+  } catch (error) {
+    console.error("Fetch locations error:", error.message);
+    dispatch({ type: FETCH_LOCATIONS_ERROR, payload: error.message });
+  }
 };
 
 export const addLocation = (location) => async (dispatch, getState) => {

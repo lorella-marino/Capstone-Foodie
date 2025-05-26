@@ -1,9 +1,9 @@
 import { LOGIN } from "../actions";
 
 const initialState = {
-  token: "",
-  username: "",
-  roles: "",
+  token: localStorage.getItem("token") || "",
+  username: localStorage.getItem("username") || "",
+  roles: JSON.parse(localStorage.getItem("roles")) || "",
 };
 
 const loginReducer = (state = initialState, action) => {

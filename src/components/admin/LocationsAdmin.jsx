@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addLocation, deleteLocation, fetchLocations, updateLocation } from "../../redux/actions";
+import { addLocation, deleteLocation, updateLocation } from "../../redux/actions";
 import { Container, Form, Button, Row, Col, ListGroup, Table } from "react-bootstrap";
 import { BsFillPencilFill, BsFillTrash3Fill } from "react-icons/bs";
 
@@ -9,10 +9,6 @@ const LocationsAdmin = () => {
   const locations = useSelector((state) => state.location.list);
 
   const [form, setForm] = useState({ via: "", url: "", id: null });
-
-  useEffect(() => {
-    dispatch(fetchLocations());
-  }, [dispatch, locations.length]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

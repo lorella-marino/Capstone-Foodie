@@ -7,7 +7,7 @@ import { isAdmin } from "../utils/getUserRoles";
 
 const Locations = () => {
   const dispatch = useDispatch();
-  const locations = useSelector((state) => state.location?.list || []);
+  const { list, loading, errore } = useSelector((state) => state.location);
 
   useEffect(() => {
     dispatch(fetchLocations());
@@ -17,15 +17,19 @@ const Locations = () => {
     <Row xs={1} lg={2} id="locations">
       <Col>
         <h2>Locations</h2>
-        {isAdmin() ? (
-          <LocationsAdmin />
-        ) : (
-          locations.map((loc) => (
-            <a key={loc.id} href={loc.url} className="d-block text-black">
-              {loc.via}
-            </a>
-          ))
-        )}
+        {loading && <p>Caricamento in corso...</p>}
+        {errore && <p>Errore: {errore}</p>}
+        {!loading &&
+          !errore &&
+          (isAdmin() ? (
+            <LocationsAdmin />
+          ) : (
+            list.map((loc) => (
+              <a key={loc.id} href={loc.url} className="d-block text-black">
+                {loc.via}
+              </a>
+            ))
+          ))}
       </Col>
       <Col className=" d-flex  flex-column  justify-content-center">
         <div style={{ backgroundColor: "#faf6f0", borderRadius: "20px", padding: "20px" }} className="text-center">
@@ -35,4 +39,5 @@ const Locations = () => {
     </Row>
   );
 };
+
 export default Locations;
