@@ -360,9 +360,13 @@ ul li ul {
   cursor: pointer;
 }
 
-/* #modalefinale {
+#modalefinale {
   text-align: center;
-} */
+}
+
+#modalefinale .modal-header {
+  color: #b46577;
+}
 
 /* FORM*/
 

@@ -90,7 +90,8 @@ const Contatti = () => {
               value={form.messaggio}
               onChange={handleChange}
               required
-            />
+            />{" "}
+            <Form.Control.Feedback type="invalid">Inserisci il messaggio.</Form.Control.Feedback>
           </Form.Group>
 
           <Button type="submit" disabled={loading}>

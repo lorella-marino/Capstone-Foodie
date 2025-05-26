@@ -4,8 +4,8 @@ import { BsFillTrash3Fill } from "react-icons/bs";
 import { inviaNota, removeFromCarrello, updateNote } from "../../redux/actions";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ModaleOrdine from "./ModaleOrdine";
 import { isLogged } from "../../utils/getUserRoles";
+import ModaleOrdine from "./ordine/ModaleOrdine";
 
 const Carrello = () => {
   const { items } = useSelector((state) => state.carrello);

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Form, Modal } from "react-bootstrap";
-import Pagamento from "./Pagamento";
 import ModaleFinale from "./ModaleFinale";
-import { svuotaCarrello } from "../../redux/actions";
+import { svuotaCarrello } from "../../../redux/actions";
+import RecapOrdine from "./RecapOrdine";
 
 const ModaleOrdine = ({ show, onHide, onConferma }) => {
   const dispatch = useDispatch();
@@ -13,8 +13,11 @@ const ModaleOrdine = ({ show, onHide, onConferma }) => {
   const [tipoConsegna, setTipoConsegna] = useState(null);
   const [indirizzo, setIndirizzo] = useState("");
   const [locationScelta, setLocationScelta] = useState("");
+  const [città, setCittà] = useState("");
+  const [cap, setCap] = useState("");
 
-  const [validated, setValidated] = useState(false);
+  const [validatedTipoConsegna, setValidatedTipoConsegna] = useState(false);
+  const [validatedForm, setValidatedForm] = useState(false);
   const [fasePagamento, setFasePagamento] = useState(false);
   const [ordineConfermato, setOrdineConfermato] = useState(null);
   const [showFinale, setShowFinale] = useState(false);
@@ -28,11 +31,19 @@ const ModaleOrdine = ({ show, onHide, onConferma }) => {
   const totaleCarrello = calcolaTotale();
 
   const handleConferma = () => {
-    setValidated(true);
-
-    if (tipoConsegna === "domicilio" && !indirizzo.trim()) {
+    if (!tipoConsegna) {
+      setValidatedTipoConsegna(true);
       return;
     }
+
+    setValidatedForm(true);
+
+    if (tipoConsegna === "domicilio") {
+      if (!indirizzo.trim() || !città.trim() || !cap.trim()) {
+        return;
+      }
+    }
+
     if (tipoConsegna === "ritiro" && !locationScelta) {
       return;
     }
@@ -40,6 +51,8 @@ const ModaleOrdine = ({ show, onHide, onConferma }) => {
     const nuovoOrdine = {
       tipoConsegna,
       indirizzo: tipoConsegna === "domicilio" ? indirizzo : null,
+      città: tipoConsegna === "domicilio" ? città : null,
+      cap: tipoConsegna === "domicilio" ? cap : null,
       location: tipoConsegna === "ritiro" ? locationScelta : null,
     };
 
@@ -49,15 +62,19 @@ const ModaleOrdine = ({ show, onHide, onConferma }) => {
 
   const handlePagamento = () => {
     onConferma?.(ordineConfermato);
-    onHide(); // chiude il ModaleOrdine
+    onHide();
     dispatch(svuotaCarrello());
-    setShowFinale(true); // apre il ModaleFinale
+    setShowFinale(true);
 
     // reset campi
     setFasePagamento(false);
     setTipoConsegna(null);
     setIndirizzo("");
+    setCittà("");
+    setCap("");
     setLocationScelta("");
+    setValidatedTipoConsegna(false);
+    setValidatedForm(false);
   };
 
   return (
@@ -71,17 +88,27 @@ const ModaleOrdine = ({ show, onHide, onConferma }) => {
         </Modal.Header>
         <Modal.Body>
           {fasePagamento ? (
-            <Pagamento ordine={ordineConfermato} items={items} totale={totaleCarrello} paga={handlePagamento} />
+            <RecapOrdine ordine={ordineConfermato} items={items} totale={totaleCarrello} paga={handlePagamento} />
           ) : (
             <>
               <div id="consegna" className="d-flex justify-content-center gap-2 mb-3">
-                <Button variant={tipoConsegna === "ritiro"} className="w-100" onClick={() => setTipoConsegna("ritiro")}>
+                <Button
+                  variant={tipoConsegna === "ritiro" ? "primary" : "outline-primary"}
+                  className="w-100"
+                  onClick={() => {
+                    setTipoConsegna("ritiro");
+                    setValidatedTipoConsegna(false);
+                  }}
+                >
                   Ritiro presso il locale
                 </Button>
                 <Button
-                  variant={tipoConsegna === "domicilio"}
+                  variant={tipoConsegna === "domicilio" ? "primary" : "outline-primary"}
                   className="w-100"
-                  onClick={() => setTipoConsegna("domicilio")}
+                  onClick={() => {
+                    setTipoConsegna("domicilio");
+                    setValidatedTipoConsegna(false);
+                  }}
                 >
                   A domicilio (+2 €)
                 </Button>
@@ -90,7 +117,7 @@ const ModaleOrdine = ({ show, onHide, onConferma }) => {
               {tipoConsegna === "ritiro" && (
                 <Form.Group>
                   <Form.Select
-                    isInvalid={validated && !locationScelta}
+                    isInvalid={validatedForm && !locationScelta}
                     value={locationScelta}
                     onChange={(e) => setLocationScelta(e.target.value)}
                   >
@@ -106,21 +133,49 @@ const ModaleOrdine = ({ show, onHide, onConferma }) => {
               )}
 
               {tipoConsegna === "domicilio" && (
-                <Form.Group>
-                  <Form.Control
-                    type="text"
-                    placeholder="Inserisci il tuo indirizzo"
-                    className="mt-3"
-                    value={indirizzo}
-                    isInvalid={validated && !indirizzo.trim()}
-                    onChange={(e) => setIndirizzo(e.target.value)}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Inserisci il tuo indirizzo per la consegna.
-                  </Form.Control.Feedback>
-                </Form.Group>
+                <>
+                  <Form.Group>
+                    <Form.Control
+                      type="text"
+                      placeholder="Inserisci il tuo indirizzo"
+                      className="mt-3"
+                      value={indirizzo}
+                      isInvalid={validatedForm && !indirizzo.trim()}
+                      onChange={(e) => setIndirizzo(e.target.value)}
+                    />
+                    <Form.Control.Feedback type="invalid">Inserisci l'indirizzo per la consegna.</Form.Control.Feedback>
+                  </Form.Group>
+
+                  <Form.Group>
+                    <Form.Control
+                      type="text"
+                      placeholder="Inserisci la tua città"
+                      className="mt-3"
+                      value={città}
+                      isInvalid={validatedForm && !città.trim()}
+                      onChange={(e) => setCittà(e.target.value)}
+                    />
+                    <Form.Control.Feedback type="invalid">Inserisci la città.</Form.Control.Feedback>
+                  </Form.Group>
+
+                  <Form.Group>
+                    <Form.Control
+                      type="text"
+                      placeholder="CAP"
+                      className="mt-3"
+                      value={cap}
+                      isInvalid={validatedForm && !cap.trim()}
+                      onChange={(e) => setCap(e.target.value)}
+                    />
+                    <Form.Control.Feedback type="invalid">Inserisci il CAP.</Form.Control.Feedback>
+                  </Form.Group>
+                </>
               )}
             </>
+          )}
+
+          {validatedTipoConsegna && !tipoConsegna && (
+            <div className="text-danger text-center mb-2">Seleziona un tipo di consegna per procedere.</div>
           )}
         </Modal.Body>
         {!fasePagamento && (
