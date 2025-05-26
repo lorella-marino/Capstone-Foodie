@@ -2,7 +2,7 @@ import { Card, Row, Col, Button } from "react-bootstrap";
 import { useRef, useState } from "react";
 import { BsFillCaretLeftFill, BsFillCaretRightFill } from "react-icons/bs";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../redux/actions";
+import { addToCarrello } from "../../redux/actions";
 import { BiCart } from "react-icons/bi";
 
 const CardMenu = ({ id, nome, descrizione, prezzo, calorie, immagine, topping }) => {
@@ -19,9 +19,9 @@ const CardMenu = ({ id, nome, descrizione, prezzo, calorie, immagine, topping })
 
   const dispatch = useDispatch();
 
-  const handleAddToCart = () => {
+  const handleaddToCarrello = () => {
     dispatch(
-      addToCart({
+      addToCarrello({
         id,
         nome,
         descrizione,
@@ -55,7 +55,7 @@ const CardMenu = ({ id, nome, descrizione, prezzo, calorie, immagine, topping })
               <Col xs={5} className="d-flex justify-content-end">
                 <Card.Text className="fs-3 fw-semibold me-3">{prezzo} €</Card.Text>
                 <div>
-                  <Button id="aggiungi" onClick={handleAddToCart}>
+                  <Button id="aggiungi" onClick={handleaddToCarrello}>
                     <BiCart />
                   </Button>
                 </div>

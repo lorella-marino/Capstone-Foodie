@@ -1,7 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { BsFillTrash3Fill } from "react-icons/bs";
-import { inviaNota, removeFromCart, updateNote } from "../../redux/actions";
+import { inviaNota, removeFromCarrello, updateNote } from "../../redux/actions";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import ModaleOrdine from "./ModaleOrdine";
+import { isLogged } from "../../utils/getUserRoles";
 
 const Carrello = () => {
   const { items } = useSelector((state) => state.carrello);
@@ -16,10 +20,39 @@ const Carrello = () => {
   };
 
   const handleRemove = (id, toppings) => {
-    dispatch(removeFromCart(id, toppings));
+    dispatch(removeFromCarrello(id, toppings));
   };
 
   const totale = items.reduce((somma, item) => somma + item.prezzo * item.quantità, 0);
+
+  const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
+
+  const handleProseguiOrdine = () => {
+    if (!isLogged()) {
+      localStorage.setItem("redirectAfterLogin", "/menu");
+      localStorage.setItem("apriModaleDopoLogin", "true");
+      navigate("/login");
+    } else {
+      setShowModal(true);
+    }
+  };
+
+  useEffect(() => {
+    const apriModale = localStorage.getItem("apriModaleDopoLogin");
+    if (apriModale === "true" && isLogged()) {
+      setShowModal(true);
+      localStorage.removeItem("apriModaleDopoLogin"); // rimuove per evitare aperture future
+    }
+  }, []);
+
+  const [ordineConfermato, setOrdineConfermato] = useState(null);
+  const [fasePagamento, setFasePagamento] = useState(false);
+
+  const handleConfermaOrdine = (datiOrdine) => {
+    setOrdineConfermato(datiOrdine);
+    setFasePagamento(true);
+  };
 
   return (
     <div id="carrello">
@@ -38,7 +71,7 @@ const Carrello = () => {
                       <ul className="mb-1" style={{ listStyleType: "none", paddingLeft: 0 }}>
                         {item.toppings.map((topping, idx) => (
                           <li key={idx} style={{ fontSize: "0.9rem" }}>
-                            + {topping.prezzo} € {topping.nome}
+                            + {topping.nome} ( {topping.prezzo} €)
                           </li>
                         ))}
                       </ul>
@@ -77,10 +110,22 @@ const Carrello = () => {
               </div>
             ))}
 
-            <h4 className="mt-3">Totale: {totale.toFixed(2)} €</h4>
+            <h4 className="mt-4">Totale: {totale.toFixed(2)} €</h4>
+            <Button className="mt-1 w-100 fs-5" onClick={handleProseguiOrdine}>
+              Prosegui con l'ordine
+            </Button>
           </>
         )}
       </div>
+      <ModaleOrdine
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        onConferma={handleConfermaOrdine}
+        items={items}
+        totale={totale}
+        fasePagamento={fasePagamento}
+        ordineConfermato={ordineConfermato}
+      />
     </div>
   );
 };

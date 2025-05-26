@@ -166,15 +166,16 @@ export const fetchMenu = () => async (dispatch) => {
   }
 };
 
-export const ADD_TO_CART = "ADD_TO_CART";
-export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
+export const ADD_TO_CARRELLO = "ADD_TO_CARRELLO";
+export const REMOVE_FROM_CARRELLO = "REMOVE_FROM_CARRELLO";
+export const SVUOTA_CARRELLO = "SVUOTA_CARRELLO";
 
-export const addToCart = (prodotto) => {
+export const addToCarrello = (prodotto) => {
   const prezzoToppings = prodotto.toppings?.reduce((acc, t) => acc + t.prezzo, 0) || 0;
   const prezzoTotale = prodotto.prezzo + prezzoToppings;
 
   return {
-    type: ADD_TO_CART,
+    type: ADD_TO_CARRELLO,
     payload: {
       ...prodotto,
       prezzo: prezzoTotale,
@@ -182,9 +183,13 @@ export const addToCart = (prodotto) => {
   };
 };
 
-export const removeFromCart = (id, toppings) => ({
-  type: REMOVE_FROM_CART,
+export const removeFromCarrello = (id, toppings) => ({
+  type: REMOVE_FROM_CARRELLO,
   payload: { id, toppings },
+});
+
+export const svuotaCarrello = () => ({
+  type: SVUOTA_CARRELLO,
 });
 
 export const INVIA_NOTA = "INVIA_NOTA";

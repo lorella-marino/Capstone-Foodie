@@ -177,11 +177,11 @@ h2 {
   top: 7rem;
   right: 1rem;
   width: 350px;
-  height: 84%;
+  height: 100%;
   background-color: #a98e60;
   color: white;
   padding: 20px;
-  border-radius: 20px 20px 0 0;
+  border-radius: 20px;
   box-shadow: 0px 0px 10px 0px rgb(198, 198, 198);
   overflow-y: auto;
   z-index: 1050;
@@ -196,6 +196,7 @@ h2 {
   overflow-y: auto;
   flex-grow: 1;
   margin-top: 1rem;
+  margin-bottom: 8rem;
 }
 
 #carrello #form {
@@ -207,7 +208,8 @@ h2 {
   transition: 0.3s;
 }
 
-.form-control:focus {
+.form-control:focus,
+.form-select:focus {
   outline: none !important;
   box-shadow: 0 0 0 0 rgba(255, 180, 0, 0.5) !important;
 }
@@ -277,13 +279,11 @@ td {
 
 #aggiungi:hover {
   background-color: #944c61;
-  color: white;
   cursor: pointer;
 }
 
 #carrello button:hover {
   background-color: #2d4831;
-  color: white;
   cursor: pointer;
 }
 
@@ -315,18 +315,56 @@ td {
   cursor: pointer;
 }
 
-/* FORM*/
-/* #formcontatti,
-#formregister {
-  background-image: linear-gradient(rgba(255, 255, 255, 0.907), rgba(255, 255, 255, 0.873)),
-    url("src/assets/pattern.png");
-  border-radius: 50px;
-  background-size: auto 1000px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: fixed;
-  padding: 3rem;
+ul li ul {
+  padding: 0;
+}
+
+/* MODALE */
+
+.modal-content {
+  background-color: #f1f6ea !important;
+}
+
+#buttonoconferma,
+#consegna button,
+#buttonannulla {
+  background-color: #b46577;
+  color: white;
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+#buttonoconferma:hover {
+  background-color: #944c61;
+  cursor: pointer;
+}
+
+#consegna button {
+  background-color: #839770;
+}
+
+#consegna button:hover {
+  background-color: #426447;
+  cursor: pointer;
+}
+
+#buttonannulla {
+  background-color: #d59eaa;
+}
+
+#buttonannulla:hover {
+  background-color: #944c61;
+  cursor: pointer;
+}
+
+/* #modalefinale {
+  text-align: center;
 } */
+
+/* FORM*/
 
 #form input,
 #form textarea,

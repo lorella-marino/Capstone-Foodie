@@ -29,7 +29,9 @@ function LoginPage() {
 
     const result = await dispatch(login(form));
     if (result?.success) {
-      navigate("/login");
+      const redirectPath = localStorage.getItem("redirectAfterLogin") || "/";
+      localStorage.removeItem("redirectAfterLogin");
+      navigate(redirectPath);
     } else {
       setErrore(true);
     }

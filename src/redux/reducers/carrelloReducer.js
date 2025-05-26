@@ -1,4 +1,4 @@
-import { ADD_TO_CART, INVIA_NOTA, REMOVE_FROM_CART, UPDATE_NOTE } from "../actions";
+import { ADD_TO_CARRELLO, INVIA_NOTA, REMOVE_FROM_CARRELLO, UPDATE_NOTE } from "../actions";
 
 const initialState = {
   items: [],
@@ -6,7 +6,7 @@ const initialState = {
 
 const carrelloReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_TO_CART: {
+    case ADD_TO_CARRELLO: {
       const exist = state.items.find(
         (item) =>
           item.id === action.payload.id && JSON.stringify(item.toppings) === JSON.stringify(action.payload.toppings)
@@ -29,13 +29,19 @@ const carrelloReducer = (state = initialState, action) => {
       };
     }
 
-    case REMOVE_FROM_CART:
+    case REMOVE_FROM_CARRELLO:
       return {
         ...state,
         items: state.items.filter(
           (item) =>
             item.id !== action.payload.id || JSON.stringify(item.toppings) !== JSON.stringify(action.payload.toppings)
         ),
+      };
+
+    case "SVUOTA_CARRELLO":
+      return {
+        ...state,
+        items: [],
       };
 
     case INVIA_NOTA:
