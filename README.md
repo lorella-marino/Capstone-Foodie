@@ -8,7 +8,7 @@ Foodie 🌿 è un progetto nato durante il mio percorso di laurea in Design 👩
 
 Il progetto sarà sviluppato utilizzando:
 
-**Front-end**
+**Front-end** ➡️ https://github.com/lorella-marino/Capstone-Foodie-Frontend.git
 
 • React ⚛: per una UI moderna e accessibile, gestita tramite componenti riutilizzabili
 
@@ -16,7 +16,7 @@ Il progetto sarà sviluppato utilizzando:
 
 • Bootstrap: per uno sviluppo rapido e responsive dell’interfaccia
 
-**Back-end**
+**Back-end** ➡️ https://github.com/lorella-marino/Capstone-Foodie-Backend.git
 
 • Java ☕ e Spring Boot: per una gestione sicura di ordini, autenticazione e dati utente
 
