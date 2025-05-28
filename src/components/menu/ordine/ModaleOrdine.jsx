@@ -29,7 +29,7 @@ const ModaleOrdine = ({ show, onHide, onConferma }) => {
   const [showFinale, setShowFinale] = useState(false);
 
   const calcolaTotale = () => {
-    const subtotal = items.reduce((sum, item) => sum + item.prezzo * item.quantità, 0);
+    const subtotal = items.reduce((sum, item) => sum + item.prezzo * item.quantita, 0);
     const costoConsegna = tipoConsegna === "domicilio" ? 2 : 0;
     return subtotal + costoConsegna;
   };
@@ -60,6 +60,7 @@ const ModaleOrdine = ({ show, onHide, onConferma }) => {
       città: tipoConsegna === "domicilio" ? città : null,
       cap: tipoConsegna === "domicilio" ? cap : null,
       location: tipoConsegna === "ritiro" ? locationScelta : null,
+      carrello: items,
     };
 
     setOrdineConfermato(nuovoOrdine);

@@ -1,13 +1,13 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import richiestaReducer from "../reducers/richiestaReducer";
 import { locationReducer } from "../reducers/locationReducer";
 import loginReducer from "../reducers/loginReducer";
 import menuReducer from "../reducers/menuReducer";
 import carrelloReducer from "../reducers/carrelloReducer";
 import paymentReducer from "../reducers/paymentSlice";
+import emailReducer from "../reducers/emailReducer";
 
 const mainReducer = combineReducers({
-  richiesta: richiestaReducer,
+  contatto: emailReducer,
   login: loginReducer,
   location: locationReducer,
   menu: menuReducer,

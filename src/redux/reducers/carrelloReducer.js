@@ -17,7 +17,7 @@ const carrelloReducer = (state = initialState, action) => {
           ...state,
           items: state.items.map((item) =>
             item.id === action.payload.id && JSON.stringify(item.toppings) === JSON.stringify(action.payload.toppings)
-              ? { ...item, quantità: item.quantità + 1 }
+              ? { ...item, quantita: item.quantita + 1 }
               : item
           ),
         };
@@ -25,7 +25,7 @@ const carrelloReducer = (state = initialState, action) => {
 
       return {
         ...state,
-        items: [...state.items, { ...action.payload, quantità: 1, note: "" }],
+        items: [...state.items, { ...action.payload, quantita: 1, note: "" }],
       };
     }
 
@@ -51,8 +51,8 @@ const carrelloReducer = (state = initialState, action) => {
           item.id === action.payload.id && JSON.stringify(item.toppings) === JSON.stringify(action.payload.toppings)
             ? {
                 ...item,
-                notaInviata: action.payload.notaInviata,
-                note: "", // resetta il campo dopo invio
+                notaInviata: action.payload.note,
+                note: "", // resetta input
               }
             : item
         ),

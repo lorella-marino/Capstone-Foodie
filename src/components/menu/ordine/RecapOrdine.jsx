@@ -6,13 +6,13 @@ const stripePromise = loadStripe(
   "pk_test_51RT5kiPOfzVz5ifYZN6KGvhiXybdqnc2arZEIhncUHBv7fTCLitoYKSGV2L4ICvaspbAi71ARlbVOEmH6AseLoqx001Cwy3tAF"
 ); // Public Key
 
-const RecapOrdine = ({ ordine, items, totale, paga }) => {
+const RecapOrdine = ({ ordine, items, totale }) => {
   return (
     <>
       <ul>
         {items.map((item, index) => (
           <li key={index}>
-            <strong>{item.nome}</strong> x{item.quantità} - {(item.prezzo * item.quantità).toFixed(2)} €
+            <strong>{item.nome}</strong> x{item.quantita} - {(item.prezzo * item.quantita).toFixed(2)} €
             {item.toppings?.length > 0 && (
               <ul>
                 {item.toppings.map((topping, idx) => (
@@ -41,7 +41,7 @@ const RecapOrdine = ({ ordine, items, totale, paga }) => {
       <h4 className="mb-3">Pagamento con carta</h4>
 
       <Elements stripe={stripePromise}>
-        <Pagamento totale={totale} onSuccess={paga} />
+        <Pagamento totale={totale} ordine={ordine} items={items} />
       </Elements>
     </>
   );

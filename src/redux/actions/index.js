@@ -1,28 +1,53 @@
-/* import axios from "axios"; */
+export const INVIA_EMAIL_START = "INVIA_EMAIL_START";
+export const INVIA_EMAIL_SUCCESS = "INVIA_EMAIL_SUCCESS";
+export const INVIA_EMAIL_ERROR = "INVIA_EMAIL_ERROR";
 
-export const INVIA_RICHIESTA_START = "INVIA_RICHIESTA_START";
-export const INVIA_RICHIESTA_SUCCESS = "INVIA_RICHIESTA_SUCCESS";
-export const INVIA_RICHIESTA_ERROR = "INVIA_RICHIESTA_ERROR";
-
-export const inviaRichiesta = (form) => async (dispatch) => {
-  dispatch({ type: INVIA_RICHIESTA_START });
+export const inviaEmail = (form) => async (dispatch) => {
+  dispatch({ type: INVIA_EMAIL_START });
 
   try {
-    const res = await fetch("http://localhost:8080/api/richieste", {
+    const res = await fetch("http://localhost:8080/api/email/contatto", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     });
 
     if (res.ok) {
-      dispatch({ type: INVIA_RICHIESTA_SUCCESS });
+      dispatch({ type: INVIA_EMAIL_SUCCESS });
       return { success: true };
     } else {
-      dispatch({ type: INVIA_RICHIESTA_ERROR, payload: "Errore nell'invio" });
+      dispatch({ type: INVIA_EMAIL_ERROR, payload: "Errore nell'invio" });
       return { success: false };
     }
   } catch {
-    dispatch({ type: INVIA_RICHIESTA_ERROR, payload: "Errore di connessione" });
+    dispatch({ type: INVIA_EMAIL_ERROR, payload: "Errore di connessione" });
+    return { success: false };
+  }
+};
+
+export const INVIA_RIEPILOGO_ORDINE_START = "INVIA_RIEPILOGO_ORDINE_START";
+export const INVIA_RIEPILOGO_ORDINE_SUCCESS = "INVIA_RIEPILOGO_ORDINE_SUCCESS";
+export const INVIA_RIEPILOGO_ORDINE_ERROR = "INVIA_RIEPILOGO_ORDINE_ERROR";
+
+export const inviaRiepilogoOrdine = (ordine) => async (dispatch) => {
+  dispatch({ type: INVIA_RIEPILOGO_ORDINE_START });
+
+  try {
+    const res = await fetch("http://localhost:8080/api/email/ordine", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(ordine),
+    });
+
+    if (res.ok) {
+      dispatch({ type: INVIA_RIEPILOGO_ORDINE_SUCCESS });
+      return { success: true };
+    } else {
+      dispatch({ type: INVIA_RIEPILOGO_ORDINE_ERROR, payload: "Errore nell'invio del riepilogo" });
+      return { success: false };
+    }
+  } catch {
+    dispatch({ type: INVIA_RIEPILOGO_ORDINE_ERROR, payload: "Errore di connessione" });
     return { success: false };
   }
 };
@@ -121,14 +146,16 @@ export const login = (credentials) => async (dispatch) => {
       body: JSON.stringify(credentials),
     });
     if (res.ok) {
-      const { token, username, roles } = await res.json();
+      const { token, username, roles, nome, email } = await res.json();
 
       dispatch({
         type: LOGIN,
-        payload: { token, username, roles },
+        payload: { token, username, roles, nome, email },
       });
 
       localStorage.setItem("token", token);
+      localStorage.setItem("nome", nome);
+      localStorage.setItem("email", email);
 
       return { success: true };
     } else {
@@ -207,9 +234,9 @@ export const svuotaCarrello = () => ({
 export const INVIA_NOTA = "INVIA_NOTA";
 export const UPDATE_NOTE = "UPDATE_NOTE";
 
-export const inviaNota = (id, toppings, notaInviata) => ({
+export const inviaNota = (id, toppings, note) => ({
   type: INVIA_NOTA,
-  payload: { id, toppings, notaInviata },
+  payload: { id, toppings, note },
 });
 
 export const updateNote = (id, toppings, note) => ({

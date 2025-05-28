@@ -1,15 +1,16 @@
 import { Button, Form } from "react-bootstrap";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { createPaymentIntent } from "../../../redux/reducers/paymentSlice";
+import { inviaRiepilogoOrdine } from "../../../redux/actions";
 
-const Pagamento = ({ totale, onSuccess }) => {
+const Pagamento = ({ totale, ordine }) => {
   const dispatch = useDispatch();
   const stripe = useStripe();
   const elements = useElements();
   const clientSecret = useSelector((state) => state.payment.clientSecret);
-  const [validated, setValidated] = useState(false);
+  const user = useSelector((state) => state.login);
 
   useEffect(() => {
     if (totale > 0) {
@@ -19,15 +20,6 @@ const Pagamento = ({ totale, onSuccess }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const form = e.currentTarget;
-    if (!form.checkValidity()) {
-      e.stopPropagation();
-      setValidated(true);
-      return;
-    }
-
-    setValidated(true);
 
     if (!stripe || !elements || !clientSecret) return;
 
@@ -41,20 +33,37 @@ const Pagamento = ({ totale, onSuccess }) => {
       alert(result.error.message);
     } else {
       if (result.paymentIntent.status === "succeeded") {
-        alert("Pagamento riuscito!");
-        onSuccess();
+        const emailOrdine = {
+          nomeCliente: user.nome,
+          emailCliente: user.email,
+          tipoConsegna: ordine.tipoConsegna,
+          indirizzo:
+            ordine.tipoConsegna === "domicilio"
+              ? `${ordine.indirizzo}, ${ordine.città || ""}, ${ordine.cap || ""}`.trim()
+              : ordine.location,
+          totale: totale,
+          prodotti: ordine.carrello.map((p) => ({
+            nome: p.nome,
+            quantita: p.quantita,
+            toppings: p.toppings.map((t) => t.nome),
+            note: p.notaInviata || "",
+          })),
+        };
+
+        console.log("Dati emailOrdine:", emailOrdine);
+        dispatch(inviaRiepilogoOrdine(emailOrdine)).then((res) => {
+          if (res.success) {
+            alert("Email inviata con successo!");
+          } else {
+            alert("Pagamento effettuato, ma invio email fallito.");
+          }
+        });
       }
     }
   };
 
   return (
-    <Form noValidate validated={validated} onSubmit={handleSubmit}>
-      <Form.Group className="mb-3">
-        <Form.Label>Nome titolare della carta</Form.Label>
-        <Form.Control required type="text" placeholder="Nome Cognome" />
-
-        <Form.Control.Feedback type="invalid">Inserisci il nome del titolare della carta.</Form.Control.Feedback>
-      </Form.Group>
+    <Form onSubmit={handleSubmit}>
       <div className="mb-3 border rounded p-2">
         <CardElement options={{ hidePostalCode: true }} />
       </div>

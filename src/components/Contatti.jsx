@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { inviaRichiesta } from "../redux/actions";
+import { inviaEmail } from "../redux/actions";
 import { Button, Container, Form, Row } from "react-bootstrap";
 
 const Contatti = () => {
   const dispatch = useDispatch();
-  const { loading, successo, errore } = useSelector((state) => state.richiesta);
+  const { loading, successo, errore } = useSelector((state) => state.contatto);
 
   const [form, setForm] = useState({ nome: "", email: "", messaggio: "" });
   const [validated, setValidated] = useState(false);
@@ -26,7 +26,7 @@ const Contatti = () => {
 
     setValidated(true);
 
-    const result = await dispatch(inviaRichiesta(form));
+    const result = await dispatch(inviaEmail(form));
 
     if (result?.success) {
       setForm({ nome: "", email: "", messaggio: "" });
@@ -37,7 +37,7 @@ const Contatti = () => {
   useEffect(() => {
     if (successo) {
       const timer = setTimeout(() => {
-        dispatch({ type: "RESET_RICHIESTA" });
+        dispatch({ type: "RESET_EMAIL" });
       }, 3000); // 3 secondi
 
       return () => clearTimeout(timer);

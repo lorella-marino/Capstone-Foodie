@@ -23,7 +23,7 @@ const Carrello = () => {
     dispatch(removeFromCarrello(id, toppings));
   };
 
-  const totale = items.reduce((somma, item) => somma + item.prezzo * item.quantità, 0);
+  const totale = items.reduce((somma, item) => somma + item.prezzo * item.quantita, 0);
 
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
@@ -77,7 +77,7 @@ const Carrello = () => {
                       </ul>
                     )}
                     <p>
-                      x {item.quantità} = {(item.prezzo * item.quantità).toFixed(2)} €
+                      x {item.quantita} = {(item.prezzo * item.quantita).toFixed(2)} €
                     </p>
                     {item.notaInviata && (
                       <p className="mb-1" style={{ fontSize: "0.9rem", fontWeight: "100" }}>
