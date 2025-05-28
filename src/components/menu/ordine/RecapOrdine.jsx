@@ -6,7 +6,7 @@ const stripePromise = loadStripe(
   "pk_test_51RT5kiPOfzVz5ifYZN6KGvhiXybdqnc2arZEIhncUHBv7fTCLitoYKSGV2L4ICvaspbAi71ARlbVOEmH6AseLoqx001Cwy3tAF"
 ); // Public Key
 
-const RecapOrdine = ({ ordine, items, totale }) => {
+const RecapOrdine = ({ ordine, items, totale, onSuccess }) => {
   return (
     <>
       <ul>
@@ -41,7 +41,7 @@ const RecapOrdine = ({ ordine, items, totale }) => {
       <h4 className="mb-3">Pagamento con carta</h4>
 
       <Elements stripe={stripePromise}>
-        <Pagamento totale={totale} ordine={ordine} items={items} />
+        <Pagamento totale={totale} ordine={ordine} items={items} onSuccess={onSuccess} />
       </Elements>
     </>
   );

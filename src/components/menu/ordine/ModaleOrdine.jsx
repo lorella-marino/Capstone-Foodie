@@ -95,7 +95,7 @@ const ModaleOrdine = ({ show, onHide, onConferma }) => {
         </Modal.Header>
         <Modal.Body>
           {fasePagamento ? (
-            <RecapOrdine ordine={ordineConfermato} items={items} totale={totaleCarrello} paga={handlePagamento} />
+            <RecapOrdine ordine={ordineConfermato} items={items} totale={totaleCarrello} onSuccess={handlePagamento} />
           ) : (
             <>
               <div id="consegna" className="d-flex justify-content-center gap-2 mb-3">
