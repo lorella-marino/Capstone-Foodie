@@ -1,20 +1,12 @@
-import { useState } from "react";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 import Pagamento from "./Pagamento";
 
+const stripePromise = loadStripe(
+  "pk_test_51RT5kiPOfzVz5ifYZN6KGvhiXybdqnc2arZEIhncUHBv7fTCLitoYKSGV2L4ICvaspbAi71ARlbVOEmH6AseLoqx001Cwy3tAF"
+); // Public Key
+
 const RecapOrdine = ({ ordine, items, totale, paga }) => {
-  const [validated, setValidated] = useState(false);
-
-  const handleSubmit = (e) => {
-    const form = e.currentTarget;
-    e.preventDefault();
-    if (form.checkValidity() === false) {
-      e.stopPropagation();
-    } else {
-      paga();
-    }
-    setValidated(true);
-  };
-
   return (
     <>
       <ul>
@@ -48,7 +40,9 @@ const RecapOrdine = ({ ordine, items, totale, paga }) => {
       <hr />
       <h4 className="mb-3">Pagamento con carta</h4>
 
-      <Pagamento validated={validated} handleSubmit={handleSubmit} />
+      <Elements stripe={stripePromise}>
+        <Pagamento totale={totale} onSuccess={paga} />
+      </Elements>
     </>
   );
 };
