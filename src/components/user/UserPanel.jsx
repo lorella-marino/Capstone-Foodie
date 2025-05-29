@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import LoginPage from "./LoginPage";
-import RegisterPage from "./RegisterPage";
-import UserPage from "./UserPage";
+import Login from "./Login";
+import Register from "./Register";
+import UserProfilo from "./UserProfilo";
 
 const UserPanel = ({ show, onHide }) => {
   const token = useSelector((state) => state.login.token);
@@ -15,12 +15,12 @@ const UserPanel = ({ show, onHide }) => {
       </Offcanvas.Header>
       <Offcanvas.Body>
         {isLoggedIn ? (
-          <UserPage />
+          <UserProfilo />
         ) : (
           <>
-            <LoginPage />
+            <Login />
             <div className="my-4"></div>
-            <RegisterPage />
+            <Register />
           </>
         )}
       </Offcanvas.Body>

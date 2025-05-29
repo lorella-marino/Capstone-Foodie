@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Container, Row, Form, Button, Col } from "react-bootstrap";
 import { BsFillPencilFill } from "react-icons/bs";
 
-const UserPage = () => {
+const UserProfilo = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.login);
 
@@ -45,6 +45,7 @@ const UserPage = () => {
       if (res.success) {
         alert("Profilo aggiornato con successo");
         setEditMode(false);
+        dispatch(logout());
       } else {
         alert("Errore aggiornamento: " + res.message);
       }
@@ -124,4 +125,4 @@ const UserPage = () => {
   );
 };
 
-export default UserPage;
+export default UserProfilo;

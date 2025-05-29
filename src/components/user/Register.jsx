@@ -1,24 +1,23 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import { Container, Row } from "react-bootstrap";
+import { Button, Form, Container, Row, Alert } from "react-bootstrap";
 import { register } from "../../redux/actions";
 
-function RegisterPage() {
+function Register() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [form, setForm] = useState({
+
+  const initialState = {
     username: "",
     password: "",
     nome: "",
     cognome: "",
     telefono: "",
     email: "",
-  });
+  };
 
+  const [form, setForm] = useState(initialState);
   const [validated, setValidated] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(""); // nuovo stato per messaggio di successo
 
   const fields = [
     { name: "username", placeholder: "Username", type: "text" },
@@ -35,21 +34,33 @@ function RegisterPage() {
 
     if (formElement.checkValidity() === false) {
       event.stopPropagation();
-    } else {
-      const result = await dispatch(register(form));
-      if (result.success) {
-        navigate("/");
-      } else {
-        alert("Registrazione fallita.");
-      }
+      setValidated(true);
+      return;
     }
 
-    setValidated(true);
+    const result = await dispatch(register(form));
+    if (result.success) {
+      setForm(initialState);
+      setValidated(false); // reset validazione
+      setSuccessMessage("Registrazione completata!");
+    } else {
+      setSuccessMessage("Registrazione fallita.");
+    }
   };
 
   return (
     <Container id="register">
       <p className="text-center mt-5">Non hai un account?</p>
+
+      {successMessage && (
+        <Alert
+          variant={successMessage.includes("completata") ? "success" : "danger"}
+          className="text-center py-2 mx-auto"
+        >
+          {successMessage}
+        </Alert>
+      )}
+
       <Form
         noValidate
         validated={validated}
@@ -64,7 +75,10 @@ function RegisterPage() {
                 type={type}
                 placeholder={placeholder}
                 value={form[name]}
-                onChange={(e) => setForm({ ...form, [name]: e.target.value })}
+                onChange={(e) => {
+                  setForm({ ...form, [name]: e.target.value });
+                  setSuccessMessage("");
+                }}
                 required
               />
               <Form.Control.Feedback type="invalid">
@@ -72,11 +86,13 @@ function RegisterPage() {
               </Form.Control.Feedback>
             </Form.Group>
           ))}
-          <Button type="submit">Registrati</Button>
+          <Button type="submit" className="mt-3">
+            Registrati
+          </Button>
         </Row>
       </Form>
     </Container>
   );
 }
 
-export default RegisterPage;
+export default Register;

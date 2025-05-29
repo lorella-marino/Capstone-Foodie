@@ -1,4 +1,4 @@
-import { Container, Navbar } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import "./index.css";
 import FoodieNavbar from "./components/FoodieNavbar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -6,8 +6,6 @@ import Home from "./components/home/Home";
 import ChiSiamo from "./components/chisiamo/ChiSiamo";
 import Locations from "./components/Locations";
 import Contatti from "./components/Contatti";
-import LoginPage from "./components/user/LoginPage";
-import RegisterPage from "./components/user/RegisterPage";
 import Menu from "./components/menu/Menu";
 import Footer from "./components/Footer";
 import UserPanel from "./components/user/UserPanel";
