@@ -15,7 +15,6 @@ function RegisterPage() {
     nome: "",
     cognome: "",
     telefono: "",
-    indirizzo: "",
     email: "",
   });
 
@@ -27,7 +26,6 @@ function RegisterPage() {
     { name: "nome", placeholder: "Nome", type: "text" },
     { name: "cognome", placeholder: "Cognome", type: "text" },
     { name: "telefono", placeholder: "Telefono", type: "text" },
-    { name: "indirizzo", placeholder: "Indirizzo", type: "text" },
     { name: "email", placeholder: "Email", type: "email" },
   ];
 
@@ -40,7 +38,7 @@ function RegisterPage() {
     } else {
       const result = await dispatch(register(form));
       if (result.success) {
-        navigate("/login");
+        navigate("/");
       } else {
         alert("Registrazione fallita.");
       }
@@ -50,7 +48,8 @@ function RegisterPage() {
   };
 
   return (
-    <Container>
+    <Container id="register">
+      <p className="text-center mt-5">Non hai un account?</p>
       <Form
         noValidate
         validated={validated}
@@ -58,7 +57,7 @@ function RegisterPage() {
         className="d-flex flex-column justify-content-center align-items-center text-center"
         id="form"
       >
-        <Row className="w-25 justify-content-center">
+        <Row className="justify-content-center">
           {fields.map(({ name, placeholder, type }) => (
             <Form.Group controlId={name} key={name}>
               <Form.Control

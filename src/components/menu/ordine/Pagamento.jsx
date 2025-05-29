@@ -34,6 +34,7 @@ const Pagamento = ({ totale, ordine, onSuccess }) => {
     } else if (result.paymentIntent.status === "succeeded") {
       const emailOrdine = {
         nomeCliente: user.nome,
+        cognomeCliente: user.cognome,
         emailCliente: user.email,
         tipoConsegna: ordine.tipoConsegna,
         indirizzo:

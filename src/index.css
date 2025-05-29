@@ -16,8 +16,9 @@ p {
   width: 10rem;
 }
 
-a.nav-link {
-  color: #a98e60;
+a.nav-link,
+button.nav-link {
+  color: #a98e60 !important;
   font-weight: bold;
   font-size: 1.1rem;
   transition: 0.3s;
@@ -27,6 +28,7 @@ a.nav-link {
   text-decoration: none;
 }
 
+button.nav-link:hover,
 a.nav-link:hover,
 a.nav-link.active,
 a.nav-link.show {
@@ -75,6 +77,12 @@ footer a {
   margin-left: auto;
   margin-right: auto;
   text-align: left;
+}
+
+/* USER PANEL */
+
+.offcanvas {
+  background-color: #f1f6ea !important;
 }
 
 /* HOME */
@@ -181,10 +189,10 @@ h2 {
   background-color: #a98e60;
   color: white;
   padding: 20px;
-  border-radius: 20px;
+  border-radius: 20px 20px 0 0;
   box-shadow: 0px 0px 10px 0px rgb(198, 198, 198);
   overflow-y: auto;
-  z-index: 1050;
+  z-index: 2;
 }
 
 #carrello h2 {
@@ -227,7 +235,7 @@ h2 {
   cursor: pointer;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   #carrello {
     width: 91%;
     top: auto;
@@ -394,6 +402,11 @@ ul li ul {
 #buttonregister:hover {
   background-color: #944c61;
   cursor: pointer;
+}
+
+#login #form input,
+#register #form input {
+  background-color: white;
 }
 
 /* MEDIA QUERIES */

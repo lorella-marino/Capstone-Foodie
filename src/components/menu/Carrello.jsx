@@ -3,11 +3,10 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import { BsFillTrash3Fill } from "react-icons/bs";
 import { inviaNota, removeFromCarrello, updateNote } from "../../redux/actions";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { isLogged } from "../../utils/getUserRoles";
 import ModaleOrdine from "./ordine/ModaleOrdine";
 
-const Carrello = () => {
+const Carrello = ({ apriUserPanel }) => {
   const { items } = useSelector((state) => state.carrello);
   const dispatch = useDispatch();
 
@@ -26,13 +25,12 @@ const Carrello = () => {
   const totale = items.reduce((somma, item) => somma + item.prezzo * item.quantita, 0);
 
   const [showModal, setShowModal] = useState(false);
-  const navigate = useNavigate();
 
   const handleProseguiOrdine = () => {
     if (!isLogged()) {
       localStorage.setItem("redirectAfterLogin", "/menu");
       localStorage.setItem("apriModaleDopoLogin", "true");
-      navigate("/login");
+      apriUserPanel();
     } else {
       setShowModal(true);
     }

@@ -37,12 +37,7 @@ const CardMenu = ({ id, nome, descrizione, prezzo, calorie, immagine, topping })
     <Card className="mb-3">
       <Row className="g-1">
         <Col md={3}>
-          <Card.Img
-            src={immagine}
-            alt={nome}
-            className="h-100  object-fit-cover"
-            style={{ borderRadius: "0.25rem 0 0 0.25rem" }}
-          />
+          <Card.Img src={immagine} alt={nome} className="h-100  object-fit-cover" />
         </Col>
         <Col md={9} className="my-2">
           <Card.Body>

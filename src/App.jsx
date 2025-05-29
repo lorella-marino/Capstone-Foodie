@@ -10,19 +10,19 @@ import LoginPage from "./components/user/LoginPage";
 import RegisterPage from "./components/user/RegisterPage";
 import Menu from "./components/menu/Menu";
 import Footer from "./components/Footer";
+import UserPanel from "./components/user/UserPanel";
 
 function App() {
   return (
     <BrowserRouter>
       <FoodieNavbar />
+      <UserPanel />
       <Container className="mt-4">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/chi-siamo" element={<ChiSiamo />} />
           <Route path="/locations" element={<Locations />} />
           <Route path="/contatti" element={<Contatti />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/registrazione" element={<RegisterPage />} />
           <Route path="/menu" element={<Menu />} />
         </Routes>
       </Container>

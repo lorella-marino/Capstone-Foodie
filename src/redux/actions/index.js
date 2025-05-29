@@ -137,6 +137,7 @@ export const updateLocation = (id, location) => async (dispatch, getState) => {
 
 export const LOGIN = "LOGIN";
 export const REGISTER = "REGISTER";
+export const LOGOUT = "LOGOUT";
 
 export const login = (credentials) => async (dispatch) => {
   try {
@@ -146,14 +147,15 @@ export const login = (credentials) => async (dispatch) => {
       body: JSON.stringify(credentials),
     });
     if (res.ok) {
-      const { token, username, roles, nome, email } = await res.json();
+      const { token, username, roles, nome, cognome, telefono, email } = await res.json();
 
       dispatch({
         type: LOGIN,
-        payload: { token, username, roles, nome, email },
+        payload: { token, username, roles, nome, cognome, telefono, email },
       });
 
       localStorage.setItem("token", token);
+      localStorage.setItem("username", username);
       localStorage.setItem("nome", nome);
       localStorage.setItem("email", email);
 
@@ -185,6 +187,74 @@ export const register = (formData) => async (dispatch) => {
     }
   } catch (error) {
     console.error("Errore nella registrazione:", error);
+    return { success: false };
+  }
+};
+
+export const logout = () => (dispatch) => {
+  localStorage.clear();
+  dispatch({ type: LOGOUT });
+};
+
+export const UPDATE_PROFILE = "UPDATE_PROFILE";
+export const DELETE_PROFILE = "DELETE_PROFILE";
+
+export const updateProfile = (formData, token) => async (dispatch) => {
+  try {
+    const res = await fetch("http://localhost:8080/api/auth/update", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (res.ok) {
+      const updated = await res.json();
+      dispatch({
+        type: UPDATE_PROFILE,
+        payload: updated,
+      });
+
+      localStorage.setItem("nome", updated.nome);
+      localStorage.setItem("email", updated.email);
+      localStorage.setItem("username", updated.username);
+
+      return { success: true };
+    } else {
+      const errorText = await res.text();
+      console.error("Errore aggiornamento:", errorText);
+      return { success: false, message: errorText };
+    }
+  } catch (error) {
+    console.error("Errore update:", error);
+    return { success: false, message: error.message };
+  }
+};
+
+export const deleteProfile = () => async (dispatch, getState) => {
+  const token = getState().login.token;
+
+  try {
+    const res = await fetch("http://localhost:8080/api/auth/delete", {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (res.ok) {
+      dispatch({ type: DELETE_PROFILE });
+      localStorage.clear();
+      return { success: true };
+    } else {
+      const errorText = await res.text();
+      console.error("Errore nella cancellazione:", errorText);
+      return { success: false };
+    }
+  } catch (error) {
+    console.error("Errore di rete nella cancellazione:", error);
     return { success: false };
   }
 };

@@ -38,7 +38,7 @@ function LoginPage() {
   };
 
   return (
-    <Container>
+    <Container id="login">
       <Form
         noValidate
         validated={validated}
@@ -46,7 +46,7 @@ function LoginPage() {
         className="d-flex flex-column  align-items-center text-center"
         id="form"
       >
-        <Row className="w-25 flex-column justify-content-center align-items-center">
+        <Row className=" flex-column justify-content-center align-items-center">
           <Form.Group controlId="validationUsername">
             <Form.Control
               required
@@ -73,10 +73,6 @@ function LoginPage() {
 
           <Button type="submit" className="d-block">
             Login
-          </Button>
-          <p className="mt-4 mb-1">Non hai un account?</p>
-          <Button id="buttonregister" href="/registrazione" className="d-block">
-            Registrati
           </Button>
         </Row>
       </Form>
