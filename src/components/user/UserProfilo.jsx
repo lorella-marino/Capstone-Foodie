@@ -73,7 +73,7 @@ const UserProfilo = () => {
       {!editMode ? (
         <>
           <div>
-            <h4>Ciao, {user.nome}!</h4>
+            <h4>Ciao {user.username}!</h4>
             <p>Benvenut* nel tuo profilo.</p>
           </div>
           <div className="d-flex flex-column flex-sm-row gap-2 justify-content-center mt-3">

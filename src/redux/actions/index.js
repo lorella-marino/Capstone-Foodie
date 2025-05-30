@@ -266,7 +266,7 @@ export const FETCH_MENU_ERROR = "FETCH_MENU_ERROR";
 export const fetchMenu = () => async (dispatch) => {
   dispatch({ type: FETCH_MENU_START });
   try {
-    const res = await fetch("http://localhost:8080/api/menu");
+    const res = await fetch("http://localhost:8080/api/prodotto/menu");
     if (!res.ok) throw new Error("Errore nella fetch del menu");
     const data = await res.json();
     dispatch({ type: FETCH_MENU_SUCCESS, payload: data });
@@ -320,7 +320,7 @@ export const UPDATE_PRODOTTO = "UPDATE_PRODOTTO";
 
 export const addProdotto = (formData, file) => async (dispatch) => {
   try {
-    const res = await fetch(`http://localhost:8080/api/menu?sezioneMenu=${formData.sezioneMenu}`, {
+    const res = await fetch(`http://localhost:8080/api/prodotto?sezioneMenu=${formData.sezioneMenu}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -343,7 +343,7 @@ export const addProdotto = (formData, file) => async (dispatch) => {
       const formImg = new FormData();
       formImg.append("file", file);
 
-      const uploadImg = await fetch(`http://localhost:8080/api/menu/${nuovoProdotto.id}/immagine`, {
+      const uploadImg = await fetch(`http://localhost:8080/api/prodotto/${nuovoProdotto.id}/immagine`, {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -366,7 +366,7 @@ export const addProdotto = (formData, file) => async (dispatch) => {
 export const deleteProdotto = (id) => async (dispatch, getState) => {
   const token = getState().login.token;
 
-  const res = await fetch(`http://localhost:8080/api/menu/${id}`, {
+  const res = await fetch(`http://localhost:8080/api/prodotto/${id}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -384,7 +384,7 @@ export const updateProdotto = (id, data, file) => async (dispatch) => {
   dispatch({ type: "MENU_LOADING" });
 
   try {
-    await fetch(`http://localhost:8080/api/menu/${id}`, {
+    await fetch(`http://localhost:8080/api/prodotto/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -397,7 +397,7 @@ export const updateProdotto = (id, data, file) => async (dispatch) => {
       const formData = new FormData();
       formData.append("file", file);
 
-      await fetch(`http://localhost:8080/api/menu/${id}/immagine`, {
+      await fetch(`http://localhost:8080/api/prodotto/${id}/immagine`, {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
