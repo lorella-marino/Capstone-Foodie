@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Button, Form, Container, Row, Alert } from "react-bootstrap";
 import { register } from "../../redux/actions";
 
-function Register() {
+function Register({ onRegisterSuccess }) {
   const dispatch = useDispatch();
 
   const initialState = {
@@ -17,7 +17,7 @@ function Register() {
 
   const [form, setForm] = useState(initialState);
   const [validated, setValidated] = useState(false);
-  const [successMessage, setSuccessMessage] = useState(""); // nuovo stato per messaggio di successo
+  const [successMessage, setSuccessMessage] = useState("");
 
   const fields = [
     { name: "username", placeholder: "Username", type: "text" },
@@ -41,8 +41,9 @@ function Register() {
     const result = await dispatch(register(form));
     if (result.success) {
       setForm(initialState);
-      setValidated(false); // reset validazione
+      setValidated(false);
       setSuccessMessage("Registrazione completata!");
+      onRegisterSuccess?.();
     } else {
       setSuccessMessage("Registrazione fallita.");
     }

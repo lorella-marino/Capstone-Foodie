@@ -2,13 +2,11 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
 import { Container, Row } from "react-bootstrap";
 import { login } from "../../redux/actions";
 
-function LoginPage() {
+function Login({ onClickRegister }) {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [form, setForm] = useState({ username: "", password: "" });
   const [errore, setErrore] = useState(false);
@@ -28,11 +26,7 @@ function LoginPage() {
     setErrore(false);
 
     const result = await dispatch(login(form));
-    if (result?.success) {
-      const redirectPath = localStorage.getItem("redirectAfterLogin") || "/";
-      localStorage.removeItem("redirectAfterLogin");
-      navigate(redirectPath);
-    } else {
+    if (!result?.success) {
       setErrore(true);
     }
   };
@@ -43,10 +37,10 @@ function LoginPage() {
         noValidate
         validated={validated}
         onSubmit={handleSubmit}
-        className="d-flex flex-column  align-items-center text-center"
+        className="d-flex flex-column align-items-center text-center"
         id="form"
       >
-        <Row className=" flex-column justify-content-center align-items-center">
+        <Row className="flex-column justify-content-center align-items-center">
           <Form.Group controlId="validationUsername">
             <Form.Control
               required
@@ -71,13 +65,16 @@ function LoginPage() {
 
           {errore && <p className="text-danger mt-2">Credenziali non valide</p>}
 
-          <Button type="submit" className="d-block">
+          <Button type="submit" className="d-block mt-2">
             Login
           </Button>
+
+          <p className="mt-4 mb-1">Non hai un account?</p>
+          <Button onClick={onClickRegister}>Registrati</Button>
         </Row>
       </Form>
     </Container>
   );
 }
 
-export default LoginPage;
+export default Login;
