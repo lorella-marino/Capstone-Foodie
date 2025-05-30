@@ -1,105 +1,68 @@
-import { Container, Row, Col, Button } from "react-bootstrap";
-import { BsFacebook, BsInstagram, BsTwitter, BsTwitterX, BsX, BsYoutube } from "react-icons/bs";
+import { Container, Row, Col } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
+  const locations = useSelector((state) => state.location.list || []);
+
   return (
     <>
       <div className="mt-5">
         <div className="pattern2"></div>
       </div>
-      <footer className=" py-5" style={{ backgroundColor: "#839770" }}>
-        <Container className="w-50 fs-6 m-auto">
-          <div className="mb-3">
-            <BsFacebook className="me-2 text-light" size={20} />
-            <BsInstagram className="me-2 text-light" size={20} />
-            <BsTwitterX className="me-2 text-light" size={20} />
-            <BsYoutube className="me-2 text-light" size={20} />
-          </div>
-          <Row xs={1} sm={2} md={3} className="text-light text-start mb-3">
-            <Col className="text-start">
-              <div style={{ width: "200px", margin: "0 auto" }}>
-                <a href="/chi-siamo" className="d-block">
-                  Chi siamo
-                </a>
-                <a href="/menu" className="d-block">
-                  Menu
-                </a>
-                <a href="/contatti" className="d-block">
-                  Contatti
-                </a>
-              </div>
+      <footer className=" py-5 text-light" style={{ backgroundColor: "#839770" }}>
+        <Container>
+          <Row className="text-center d-flex align-items-center ">
+            <Col xs={12} md={4} className="mb-3 mb-md-0">
+              <img src="src/assets/iconabianca.png" alt="logo" className="w-25" />
             </Col>
 
-            <Col className="text-start">
-              <div style={{ width: "200px", margin: "0 auto" }}>
-                <a href="/locations" className="d-block">
-                  Locations
-                </a>
-                <small className="d-block">Via Uno 18, Milano</small>
-                <small className="d-block">Via Due 19, Roma</small>
-                <small className="d-block">Via Tre 20, Palermo</small>
-              </div>
+            <Col xs={12} md={4} className="mb-3 mb-md-0">
+              <ul className="list-unstyled">
+                <li>
+                  <Link to="/" className="footer-link">
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/menu" className="footer-link">
+                    Menu
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/chi-siamo" className="footer-link">
+                    Chi siamo
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/contatti" className="footer-link">
+                    Contatti
+                  </Link>
+                </li>
+              </ul>
             </Col>
 
-            <Col className="text-start">
-              <div style={{ width: "200px", margin: "0 auto" }}>
-                <a href="/" className="d-block">
-                  Help Center
-                </a>
-                <a href="/" className="d-block">
-                  Privacy
-                </a>
-                <a href="/" className="d-block">
-                  Cookie Preferences
-                </a>
-              </div>
-            </Col>
-          </Row>
-
-          <small className="pfooter text-light pt-2 mb-0 fw-light">&copy; 2022-2025 Foodie, Inc.</small>
-
-          {/* <Row xs={1} sm={2} md={3} className="text-light text-start mb-3">
-            <Col>
-              <div className="col-inner">
-                <a href="/chi-siamo">Chi siamo</a>
-
-                <a href="/menu">Menu</a>
-
-                <a href="/contatti">Contatti</a>
-              </div>
-            </Col>
-
-            <Col>
-              <div className="col-inner">
-                <a href="/locations">Locations</a>
-                <small>Via Uno 18, Milano</small>
-                <br />
-                <small>Via Due 19, Roma</small>
-                <br />
-                <small>Via Tre 20, Palermo</small>
-                <br />
-              </div>
-            </Col>
-
-            <Col>
-              <div className="col-inner">
-                <a href="/">Help Center</a>
-
-                <a href="/">Privacy</a>
-
-                <a href="/">Cookie Preferences</a>
-              </div>
+            <Col xs={12} md={4}>
+              <h5>Le nostre sedi</h5>
+              <ul className="list-unstyled">
+                {locations.length > 0 ? (
+                  locations.map((loc) => (
+                    <small key={loc.id} className="d-block">
+                      {loc.via}
+                    </small>
+                  ))
+                ) : (
+                  <small>Nessuna location disponibile</small>
+                )}
+              </ul>
             </Col>
           </Row>
-          <div className="text-center ">
-            <div className="mb-3 me-3 d-inline">
-              <BsFacebook className="me-2 text-light" size={20} />
-              <BsInstagram className="me-2 text-light" size={20} />
-              <BsTwitter className="me-2 text-light" size={20} />
-              <BsYoutube className="me-2 text-light" size={20} />
-            </div>
-            <small className="pfooter text-light pt-2 mb-0 fw-light">&copy; 2022-2025 Foodie, Inc.</small>
-          </div> */}
+          <hr className="border-light" />
+          <Row>
+            <Col className="text-center">
+              <small>© {new Date().getFullYear()} Foodie. Tutti i diritti riservati.</small>
+            </Col>
+          </Row>
         </Container>
       </footer>
     </>

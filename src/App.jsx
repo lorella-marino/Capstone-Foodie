@@ -9,8 +9,17 @@ import Contatti from "./components/Contatti";
 import Menu from "./components/menu/Menu";
 import Footer from "./components/Footer";
 import UserPanel from "./components/user/UserPanel";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { fetchLocations } from "./redux/actions";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchLocations());
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
       <FoodieNavbar />
