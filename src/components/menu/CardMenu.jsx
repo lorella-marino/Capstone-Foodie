@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { addToCarrello } from "../../redux/actions";
 import { BiCart } from "react-icons/bi";
 
-const CardMenu = ({ id, nome, descrizione, prezzo, calorie, immagine, topping }) => {
+const CardMenu = ({ id, nome, descrizione, prezzo, calorie, immagine, topping, categoria }) => {
   const scrollRef = useRef();
 
   const scroll = (direction) => {
@@ -39,7 +39,7 @@ const CardMenu = ({ id, nome, descrizione, prezzo, calorie, immagine, topping })
         <Col md={3}>
           <Card.Img src={immagine} alt={nome} className="h-100  object-fit-cover" />
         </Col>
-        <Col md={9} className="my-2 align-content-center">
+        <Col md={9} className={`my-2 ${categoria === "BEVANDE" ? "align-content-top" : "align-content-center"}`}>
           <Card.Body>
             <Row>
               <Col xs={7}>

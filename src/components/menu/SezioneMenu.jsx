@@ -19,6 +19,7 @@ const SezioneMenu = ({ prodotti }) => {
             prezzo={prodotto.prezzo}
             calorie={prodotto.calorie}
             topping={nomeSezione === "BEVANDE" ? [] : prodotto.topping} // se BEVANDE, passa array vuoto
+            categoria={nomeSezione}
           />
         ))}
       </div>
