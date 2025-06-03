@@ -10,6 +10,10 @@ p {
   font-size: 1.1rem;
 }
 
+.spinner-border {
+  color: #839770;
+}
+
 /* NAVBAR */
 
 .navbar img {
@@ -115,7 +119,7 @@ footer a {
   padding: 1rem 0;
   background-color: #426447;
   border: none;
-  border-radius: 100px;
+  border-radius: 10px;
   align-content: center;
 }
 
@@ -233,15 +237,6 @@ h2 {
   background-color: #faf6f0ae;
   color: #839770;
   cursor: pointer;
-}
-
-@media (max-width: 1200px) {
-  #carrello {
-    width: 91%;
-    top: auto;
-    bottom: 0;
-    height: 30vh;
-  }
 }
 
 #prodotticarrello {
@@ -410,3 +405,18 @@ ul li ul {
 }
 
 /* MEDIA QUERIES */
+
+@media (max-width: 1200px) {
+  #carrello {
+    width: 91%;
+    top: auto;
+    bottom: 0;
+    height: 30vh;
+  }
+}
+
+@media (max-width: 800px) {
+  #contatti .row {
+    width: 100% !important;
+  }
+}

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLocations } from "../redux/actions";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Spinner } from "react-bootstrap";
 import LocationsAdmin from "./admin/LocationsAdmin";
 import { isAdmin } from "../utils/getUserRoles";
 
@@ -17,7 +17,7 @@ const Locations = () => {
     <Row id="locations" className="g-3">
       <Col lg={5}>
         <h2>Locations</h2>
-        {loading && <p>Caricamento in corso...</p>}
+        {loading && <Spinner animation="border" />}
         {errore && <p>Errore: {errore}</p>}
         {!loading &&
           !errore &&

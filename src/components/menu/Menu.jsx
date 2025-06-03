@@ -36,7 +36,7 @@ const Menu = () => {
             <Col xs={12} xl={9}>
               <div className="menu">
                 {loading && <Spinner animation="border" />}
-                {error && <p>{error}</p>}
+                {error && <p>Errore: {error}</p>}
                 {SEZIONI.map((sezione) =>
                   gruppiPerSezione[sezione] ? (
                     <SezioneMenu key={sezione} sezione={sezione} prodotti={gruppiPerSezione[sezione]} />

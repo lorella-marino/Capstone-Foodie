@@ -63,14 +63,11 @@ export const FETCH_LOCATIONS_ERROR = "FETCH_LOCATIONS_ERROR";
 export const fetchLocations = () => async (dispatch) => {
   dispatch({ type: FETCH_LOCATIONS_START });
   try {
-    console.log("Fetch locations started");
     const res = await fetch("http://localhost:8080/api/locations");
     if (!res.ok) throw new Error("Errore nella fetch delle locations");
     const data = await res.json();
-    console.log("Fetch locations success", data);
     dispatch({ type: FETCH_LOCATIONS, payload: data });
   } catch (error) {
-    console.error("Fetch locations error:", error.message);
     dispatch({ type: FETCH_LOCATIONS_ERROR, payload: error.message });
   }
 };

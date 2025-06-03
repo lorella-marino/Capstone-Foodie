@@ -41,7 +41,7 @@ function Login({ onClickRegister }) {
         id="form"
       >
         <Row className="flex-column justify-content-center align-items-center">
-          <Form.Group controlId="validationUsername">
+          <Form.Group>
             <Form.Control
               required
               type="text"
@@ -52,7 +52,7 @@ function Login({ onClickRegister }) {
             <Form.Control.Feedback type="invalid">Inserisci il tuo nome.</Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group controlId="validationPassword">
+          <Form.Group>
             <Form.Control
               required
               type="password"

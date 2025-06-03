@@ -28,7 +28,7 @@ const LocationsAdmin = () => {
       <Form onSubmit={handleSubmit} className="mb-4 p-0" id="form">
         <Row>
           <Col md={4}>
-            <Form.Group controlId="formVia">
+            <Form.Group>
               <Form.Control
                 type="text"
                 name="via"
@@ -40,7 +40,7 @@ const LocationsAdmin = () => {
             </Form.Group>
           </Col>
           <Col md={5}>
-            <Form.Group controlId="formUrl">
+            <Form.Group>
               <Form.Control
                 type="text"
                 name="url"

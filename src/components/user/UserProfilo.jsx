@@ -89,7 +89,7 @@ const UserProfilo = () => {
         <Form noValidate validated={validated} onSubmit={handleSubmitUpdate}>
           <Row className="gap-3">
             {fields.map(({ name, label, type }) => (
-              <Form.Group controlId={name} key={name}>
+              <Form.Group key={name}>
                 <Form.Label className="mb-1">{label}</Form.Label>
                 <Form.Control
                   type={type}

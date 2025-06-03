@@ -71,7 +71,7 @@ function Register({ onRegisterSuccess }) {
       >
         <Row className="justify-content-center">
           {fields.map(({ name, placeholder, type }) => (
-            <Form.Group controlId={name} key={name}>
+            <Form.Group key={name}>
               <Form.Control
                 type={type}
                 placeholder={placeholder}

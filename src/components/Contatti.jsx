@@ -45,7 +45,7 @@ const Contatti = () => {
   }, [successo, dispatch]);
 
   return (
-    <Container className="text-center">
+    <Container className="text-center" id="contatti">
       <h2>Hai qualche domanda?</h2>
       <p className="mb-4">Scrivici e ti risponderemo il prima possibile.</p>
 
@@ -54,10 +54,10 @@ const Contatti = () => {
         noValidate
         validated={validated}
         onSubmit={handleSubmit}
-        className="d-flex flex-column align-items-center"
+        className="form d-flex flex-column align-items-center"
       >
         <Row className="w-50 justify-content-center">
-          <Form.Group controlId="formNome">
+          <Form.Group>
             <Form.Control
               type="text"
               name="nome"
@@ -69,7 +69,7 @@ const Contatti = () => {
             <Form.Control.Feedback type="invalid">Inserisci il tuo nome.</Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group controlId="formEmail">
+          <Form.Group>
             <Form.Control
               type="email"
               name="email"
@@ -81,7 +81,7 @@ const Contatti = () => {
             <Form.Control.Feedback type="invalid">Inserisci una email valida.</Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group controlId="formMessaggio">
+          <Form.Group>
             <Form.Control
               as="textarea"
               name="messaggio"
