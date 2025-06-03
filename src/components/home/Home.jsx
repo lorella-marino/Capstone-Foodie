@@ -16,7 +16,7 @@ const Home = () => {
                 <p className="fw-semibold fs-5"> Chi siamo?</p>
                 <p>
                   Siamo <strong>Foodie – il buongustaio del Bio</strong> , un food truck nato da un’idea semplice:
-                  rendere il fast food sano, accessibile e incredibilmente buono. Vogliamo cambiare le regole del gioco.
+                  rendere il fast food sano, accessibile e incredibilmente buono.
                 </p>
                 <p className="opacity-50">Scopri di più...</p>
               </div>
