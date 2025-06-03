@@ -14,8 +14,8 @@ const Locations = () => {
   }, [dispatch]);
 
   return (
-    <Row xs={1} lg={2} id="locations">
-      <Col>
+    <Row id="locations" className="g-3">
+      <Col lg={5}>
         <h2>Locations</h2>
         {loading && <p>Caricamento in corso...</p>}
         {errore && <p>Errore: {errore}</p>}
@@ -31,9 +31,14 @@ const Locations = () => {
             ))
           ))}
       </Col>
-      <Col className=" d-flex  flex-column  justify-content-center">
+      <Col lg={7} className=" d-flex  flex-column  justify-content-center">
         <div style={{ backgroundColor: "#faf6f0", borderRadius: "20px", padding: "20px" }} className="text-center">
-          <img src="src/assets/italia.png" alt="mappa" className="img-fluid rounded w-75 " />
+          {/* <img src="src/assets/italia.png" alt="mappa" className="img-fluid rounded w-75 " /> */}
+          <iframe
+            src="https://www.google.com/maps/d/u/0/embed?mid=1pMDeJbZYQOBvtFL56riaxMsVfBx8vMc&ehbc=2E312F&noprof=1"
+            className="w-100"
+            height="480"
+          ></iframe>
         </div>
       </Col>
     </Row>

@@ -36,7 +36,7 @@ const Carosello = () => {
       responsive={responsive}
       infinite
       autoPlay
-      autoPlaySpeed={3000}
+      autoPlaySpeed={2500}
       keyBoardControl
       showDots={false}
       arrows={false}

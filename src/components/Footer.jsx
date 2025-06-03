@@ -14,7 +14,7 @@ const Footer = () => {
         <Container>
           <Row className="text-center d-flex align-items-center ">
             <Col xs={12} md={4} className="mb-3 mb-md-0">
-              <img src="src/assets/iconabianca.png" alt="logo" className="w-25" />
+              <img src="src/assets/iconabianca.png" alt="logo" style={{ width: "85px" }} />
             </Col>
 
             <Col xs={12} md={4} className="mb-3 mb-md-0">
@@ -47,9 +47,9 @@ const Footer = () => {
               <ul className="list-unstyled">
                 {locations.length > 0 ? (
                   locations.map((loc) => (
-                    <small key={loc.id} className="d-block">
+                    <a key={loc.id} href={loc.url} className="d-bloc fw-light" style={{ fontSize: "0.8rem" }}>
                       {loc.via}
-                    </small>
+                    </a>
                   ))
                 ) : (
                   <small>Nessuna location disponibile</small>
@@ -60,7 +60,7 @@ const Footer = () => {
           <hr className="border-light" />
           <Row>
             <Col className="text-center">
-              <small>© {new Date().getFullYear()} Foodie. Tutti i diritti riservati.</small>
+              <small>© {new Date().getFullYear()} Foodie</small>
             </Col>
           </Row>
         </Container>

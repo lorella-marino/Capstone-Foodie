@@ -35,11 +35,11 @@ const CardMenu = ({ id, nome, descrizione, prezzo, calorie, immagine, topping })
 
   return (
     <Card className="mb-3">
-      <Row className="g-1">
+      <Row className="g-1 r">
         <Col md={3}>
           <Card.Img src={immagine} alt={nome} className="h-100  object-fit-cover" />
         </Col>
-        <Col md={9} className="my-2">
+        <Col md={9} className="my-2 align-content-center">
           <Card.Body>
             <Row>
               <Col xs={7}>
@@ -58,7 +58,7 @@ const CardMenu = ({ id, nome, descrizione, prezzo, calorie, immagine, topping })
             </Row>
 
             {topping?.length > 0 && (
-              <div className="d-flex align-items-center mt-5" id="topping">
+              <div className="d-flex align-items-center mt-3" id="topping">
                 <BsFillCaretLeftFill className="buttonlr" onClick={() => scroll("left")}></BsFillCaretLeftFill>
                 <div
                   ref={scrollRef}

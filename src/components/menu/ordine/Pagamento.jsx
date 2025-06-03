@@ -41,6 +41,7 @@ const Pagamento = ({ totale, ordine, onSuccess }) => {
           ordine.tipoConsegna === "domicilio"
             ? `${ordine.indirizzo}, ${ordine.città || ""}, ${ordine.cap || ""}`.trim()
             : ordine.location,
+        orario: ordine.orario || "",
         totale: totale,
         prodotti: ordine.carrello.map((p) => ({
           nome: p.nome,

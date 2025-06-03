@@ -28,12 +28,29 @@ const RecapOrdine = ({ ordine, items, totale, onSuccess }) => {
       </ul>
 
       {ordine.tipoConsegna === "domicilio" && (
+        <>
+          <p>
+            <strong>Indirizzo:</strong> {ordine.indirizzo}, {ordine.cap} {ordine.città}
+          </p>
+          <p>
+            <strong>Consegna a domicilio:</strong> +2.00 €
+          </p>
+        </>
+      )}
+
+      {ordine.tipoConsegna === "ritiro" && ordine.location && (
         <p>
-          <strong>Consegna a domicilio:</strong> +2.00 €
+          <strong>Ritiro presso:</strong> {ordine.location}
         </p>
       )}
 
-      <p>
+      {ordine.orario && (
+        <p>
+          <strong>Orario:</strong> {ordine.orario}
+        </p>
+      )}
+
+      <p className="fs-5">
         <strong>Totale:</strong> {totale.toFixed(2)} €
       </p>
 

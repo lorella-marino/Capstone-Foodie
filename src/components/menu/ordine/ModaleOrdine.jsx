@@ -9,10 +9,21 @@ const ModaleOrdine = ({ show, onHide, onConferma }) => {
   const dispatch = useDispatch();
   const locations = useSelector((state) => state.location?.list || []);
   const items = useSelector((state) => state.carrello.items);
+  const [minTime, setMinTime] = useState("");
+  const [orario, setOrario] = useState("");
 
   useEffect(() => {
     if (show) {
       dispatch(fetchLocations());
+
+      // ora corrente
+      const now = new Date();
+      now.setMinutes(now.getMinutes() + 15);
+      const hh = now.getHours().toString().padStart(2, "0");
+      const mm = now.getMinutes().toString().padStart(2, "0");
+      setMinTime(`${hh}:${mm}`);
+
+      setOrario("");
     }
   }, [show, dispatch]);
 
@@ -45,13 +56,21 @@ const ModaleOrdine = ({ show, onHide, onConferma }) => {
     setValidatedForm(true);
 
     if (tipoConsegna === "domicilio") {
-      if (!indirizzo.trim() || !città.trim() || !cap.trim()) {
+      if (!indirizzo.trim() || !città.trim() || !cap.trim() || !orario) {
+        return;
+      }
+      if (orario < minTime || orario > "22:00") {
         return;
       }
     }
 
-    if (tipoConsegna === "ritiro" && !locationScelta) {
-      return;
+    if (tipoConsegna === "ritiro") {
+      if (!locationScelta || !orario) {
+        return;
+      }
+      if (orario < minTime || orario > "22:00") {
+        return;
+      }
     }
 
     const nuovoOrdine = {
@@ -59,6 +78,7 @@ const ModaleOrdine = ({ show, onHide, onConferma }) => {
       indirizzo: tipoConsegna === "domicilio" ? indirizzo : null,
       città: tipoConsegna === "domicilio" ? città : null,
       cap: tipoConsegna === "domicilio" ? cap : null,
+      orario,
       location: tipoConsegna === "ritiro" ? locationScelta : null,
       carrello: items,
     };
@@ -90,7 +110,7 @@ const ModaleOrdine = ({ show, onHide, onConferma }) => {
         <Modal.Header closeButton>
           <div className="d-flex flex-column align-items-start">
             <Modal.Title>{fasePagamento ? "Riepilogo ordine" : "Scegli tipo di consegna"}</Modal.Title>
-            {!fasePagamento && <p className="m-0">L'ordine solitamente è pronto entro 15 minuti</p>}
+            {!fasePagamento}
           </div>
         </Modal.Header>
         <Modal.Body>
@@ -122,21 +142,38 @@ const ModaleOrdine = ({ show, onHide, onConferma }) => {
               </div>
 
               {tipoConsegna === "ritiro" && (
-                <Form.Group>
-                  <Form.Select
-                    isInvalid={validatedForm && !locationScelta}
-                    value={locationScelta}
-                    onChange={(e) => setLocationScelta(e.target.value)}
-                  >
-                    <option value="">Seleziona una location</option>
-                    {locations.map((loc) => (
-                      <option key={loc.id} value={loc.via}>
-                        {loc.via}
-                      </option>
-                    ))}
-                  </Form.Select>
-                  <Form.Control.Feedback type="invalid">Seleziona una location per il ritiro.</Form.Control.Feedback>
-                </Form.Group>
+                <>
+                  <Form.Group>
+                    <Form.Select
+                      isInvalid={validatedForm && !locationScelta}
+                      value={locationScelta}
+                      onChange={(e) => setLocationScelta(e.target.value)}
+                    >
+                      <option value="">Seleziona una location</option>
+                      {locations.map((loc) => (
+                        <option key={loc.id} value={loc.via}>
+                          {loc.via}
+                        </option>
+                      ))}
+                    </Form.Select>
+                    <Form.Control.Feedback type="invalid">Seleziona una location per il ritiro.</Form.Control.Feedback>
+                  </Form.Group>
+
+                  <Form.Group>
+                    <Form.Label className="mt-3">Orario ritiro</Form.Label>
+                    <Form.Control
+                      type="time"
+                      value={orario}
+                      isInvalid={validatedForm && (!orario || orario < minTime || orario > "22:00")}
+                      min={minTime}
+                      max="22:00"
+                      onChange={(e) => setOrario(e.target.value)}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      Inserisci un orario valido (non prima di {minTime} e non oltre le 22:00).
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </>
               )}
 
               {tipoConsegna === "domicilio" && (
@@ -176,6 +213,20 @@ const ModaleOrdine = ({ show, onHide, onConferma }) => {
                     />
                     <Form.Control.Feedback type="invalid">Inserisci il CAP.</Form.Control.Feedback>
                   </Form.Group>
+                  <Form.Group>
+                    <Form.Label className="mt-3">Orario </Form.Label>
+                    <Form.Control
+                      type="time"
+                      value={orario}
+                      isInvalid={validatedForm && (!orario || orario < minTime || orario > "22:00")}
+                      min={minTime}
+                      max="22:00"
+                      onChange={(e) => setOrario(e.target.value)}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      Inserisci un orario valido (non prima di {minTime} e non oltre le 22:00).
+                    </Form.Control.Feedback>
+                  </Form.Group>
                 </>
               )}
             </>
@@ -200,6 +251,7 @@ const ModaleOrdine = ({ show, onHide, onConferma }) => {
         show={showFinale}
         onHide={() => setShowFinale(false)}
         tipoConsegna={ordineConfermato?.tipoConsegna}
+        orario={ordineConfermato?.orario}
       />
     </>
   );
